@@ -8,6 +8,12 @@
   function $(sel, root) { return (root || device).querySelector(sel); }
   function $all(sel, root) { return Array.prototype.slice.call((root || device).querySelectorAll(sel)); }
   function fmt(n) { return n.toLocaleString("ru-RU") + " ₽"; }
+  function plural(n, one, few, many) {
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  }
 
   /* ---------- Живое состояние приложения ---------- */
   var S = {
@@ -138,7 +144,8 @@
       $all("[data-amount-out]", sheet).forEach(function (el) { el.textContent = fmt(amount); });
       $all("[data-shares-out]", sheet).forEach(function (el) {
         var price = parseFloat(el.dataset.price || "312");
-        el.textContent = "≈ " + Math.floor(amount / price) + " акции";
+        var shares = Math.floor(amount / price);
+        el.textContent = "≈ " + shares + " " + plural(shares, "акция", "акции", "акций");
       });
     }
     buttons.forEach(function (b) { b.addEventListener("click", function () { select(b); }); });
@@ -240,6 +247,7 @@
         S.xp += 20;
         S.tasks.lesson = true;
         render();
+        toast("Урок пройден", "+20 XP");
       }
     });
   });

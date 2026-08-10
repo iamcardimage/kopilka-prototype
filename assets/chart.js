@@ -22,13 +22,14 @@
   function makeSeries(seed, start, end, vol) {
     var rnd = mulberry32(seed);
     var pts = [start];
+    var noise = 0; // накопленное блуждание, а не независимые выбросы
     for (var i = 1; i < N; i++) {
       var progress = i / (N - 1);
       var drift = start + (end - start) * progress;
       var wave = Math.sin(progress * Math.PI * (2 + rnd() * 2)) * vol * 0.35;
-      var noise = (rnd() - 0.5) * 2 * vol;
+      noise += (rnd() - 0.5) * 2 * vol * 0.3;
       var pull = 1 - Math.pow(progress, 3) * 0.85; // к концу прижимаемся к цели
-      pts.push(drift + (wave + noise) * pull * (end - start === 0 ? 1 : Math.abs(end - start)));
+      pts.push(drift + (wave * 0.5 + noise) * pull * (end - start === 0 ? 1 : Math.abs(end - start)) * 0.5);
     }
     pts[N - 1] = end;
     return pts;
@@ -40,18 +41,18 @@
     portfolio: {
       currency: fmtRub,
       periods: {
-        "1d":  { series: makeSeries(11, 52020, 52340, 0.09), delta: "▲ +320 ₽ (0,6 %) сегодня",  times: ["10:00", "12:00", "14:00", "16:00", "19:00"] },
-        "1w":  { series: makeSeries(12, 51560, 52340, 0.16), delta: "▲ +780 ₽ (1,5 %) за неделю", times: ["пн", "вт", "ср", "чт", "пт"] },
-        "1m":  { series: makeSeries(13, 50420, 52340, 0.22), delta: "▲ +1 920 ₽ (3,8 %) за месяц", times: ["12 июл", "19 июл", "26 июл", "2 авг", "10 авг"] },
-        "all": { series: makeSeries(14, 50000, 52340, 0.28), delta: "▲ +2 340 ₽ (4,7 %) с июля",  times: ["июл", "", "", "", "авг"] }
+        "1d":  { series: makeSeries(11, 52020, 52340, 0.30), delta: "▲ +320 ₽ (0,6 %) сегодня",  times: ["10:00", "12:00", "14:00", "16:00", "19:00"] },
+        "1w":  { series: makeSeries(12, 51560, 52340, 0.28), delta: "▲ +780 ₽ (1,5 %) за неделю", times: ["пн", "вт", "ср", "чт", "пт"] },
+        "1m":  { series: makeSeries(13, 50420, 52340, 0.30), delta: "▲ +1 920 ₽ (3,8 %) за месяц", times: ["12 июл", "19 июл", "26 июл", "2 авг", "10 авг"] },
+        "all": { series: makeSeries(14, 50000, 52340, 0.30), delta: "▲ +2 340 ₽ (4,7 %) с июля",  times: ["июл", "", "", "", "авг"] }
       }
     },
     sber: {
       currency: fmtRub,
       periods: {
-        "1d":  { series: makeSeries(21, 309.5, 312, 0.10), delta: "▲ +2,5 ₽ (0,8 %) сегодня",  times: ["10:00", "12:00", "14:00", "16:00", "19:00"] },
-        "1w":  { series: makeSeries(22, 306, 312, 0.18),   delta: "▲ +6 ₽ (1,9 %) за неделю",  times: ["пн", "вт", "ср", "чт", "пт"] },
-        "1m":  { series: makeSeries(23, 299, 312, 0.24),   delta: "▲ +13 ₽ (4,2 %) за месяц",  times: ["12 июл", "19 июл", "26 июл", "2 авг", "10 авг"] },
+        "1d":  { series: makeSeries(21, 309.5, 312, 0.30), delta: "▲ +2,5 ₽ (0,8 %) сегодня",  times: ["10:00", "12:00", "14:00", "16:00", "19:00"] },
+        "1w":  { series: makeSeries(22, 306, 312, 0.28),   delta: "▲ +6 ₽ (1,9 %) за неделю",  times: ["пн", "вт", "ср", "чт", "пт"] },
+        "1m":  { series: makeSeries(23, 299, 312, 0.30),   delta: "▲ +13 ₽ (4,2 %) за месяц",  times: ["12 июл", "19 июл", "26 июл", "2 авг", "10 авг"] },
         "1y":  { series: makeSeries(24, 254, 312, 0.30),   delta: "▲ +58 ₽ (23 %) за год",     times: ["авг 25", "ноя", "фев", "май", "авг 26"] },
         "5y":  { series: makeSeries(25, 143, 312, 0.34),   delta: "▲ +169 ₽ (118 %) за 5 лет", times: ["2021", "2022", "2023", "2024", "2026"] },
         "all": { series: makeSeries(26, 96, 312, 0.36),    delta: "▲ +216 ₽ (225 %) за всё время", times: ["2007", "2012", "2017", "2022", "2026"] }
@@ -207,16 +208,32 @@
       label.hidden = true;
       dotOuter.style.visibility = "";
     }
+    /* Тач: скраббинг включается только когда жест явно горизонтальный,
+       чтобы вертикальный скролл по графику не мигал тултипом. */
+    var gest = null;
     svg.addEventListener("pointerdown", function (e) {
       svg.setPointerCapture(e.pointerId);
-      scrubAt(e.clientX);
+      if (e.pointerType === "touch") {
+        gest = { active: false, x: e.clientX, y: e.clientY };
+      } else {
+        gest = { active: true };
+        scrubAt(e.clientX);
+      }
     });
     svg.addEventListener("pointermove", function (e) {
-      if (e.pressure > 0 || e.buttons) scrubAt(e.clientX);
+      if (!gest) return;
+      if (!gest.active) {
+        var dx = Math.abs(e.clientX - gest.x), dy = Math.abs(e.clientY - gest.y);
+        if (dx > 6 && dx > dy) gest.active = true;
+        else if (dy > 8 && dy > dx) { gest = null; return; }
+        else return;
+      }
+      if (e.pointerType === "touch" || e.pressure > 0 || e.buttons) scrubAt(e.clientX);
     });
-    svg.addEventListener("pointerup", scrubEnd);
-    svg.addEventListener("pointercancel", scrubEnd);
-    svg.addEventListener("lostpointercapture", scrubEnd);
+    function endGesture() { gest = null; scrubEnd(); }
+    svg.addEventListener("pointerup", endGesture);
+    svg.addEventListener("pointercancel", endGesture);
+    svg.addEventListener("lostpointercapture", endGesture);
   }
 
   /* ---------- Спарклайны ---------- */
@@ -229,7 +246,7 @@
     var rnd = mulberry32(seed);
     var n = 18, pts = [], v = 0.5;
     for (var i = 0; i < n; i++) {
-      v += (rnd() - (down ? 0.42 : 0.58)) * 0.22;
+      v += (rnd() - (down ? 0.58 : 0.42)) * 0.22;
       v = Math.max(0.05, Math.min(0.95, v));
       pts.push(v);
     }
