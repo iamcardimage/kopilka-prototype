@@ -5,6 +5,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { -webkit-tap-highlight-color: transparent; }
+body { overscroll-behavior-y: none; }
+button, a { touch-action: manipulation; }
 
 :root {
   /* iOS neutral palette — light */
@@ -263,12 +266,15 @@ html, body { margin: 0; padding: 0; }
 }
 .statusbar svg { display: block; }
 
-/* Fullscreen app on small viewports */
-@media (max-width: 560px) {
-  .studio { padding: 0; }
+/* Fullscreen app on small viewports — открывается как настоящее приложение */
+@media (max-width: 560px), (max-height: 560px) and (pointer: coarse) {
+  html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+  .studio { padding: 0; min-height: 100dvh; }
   .studio-head, .proto-controls, .studio-foot { display: none; }
+  .stage { width: 100%; }
   .device {
     width: 100%;
+    height: 100vh;
     height: 100dvh;
     border-radius: 0;
     padding: 0;
@@ -276,10 +282,34 @@ html, body { margin: 0; padding: 0; }
     background: none;
   }
   .device::after { display: none; }
-  .device-screen { border-radius: 0; }
+  .device-screen { border-radius: 0; -webkit-user-select: none; user-select: none; }
   .island { display: none; }
   .statusbar { display: none; }
-  .app { padding-top: 0 !important; }
+  .screen {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 18px);
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+  .push {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 58px);
+    padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+  }
+  .push-nav {
+    margin: calc(-1 * (env(safe-area-inset-top, 0px) + 58px)) -16px 12px;
+    padding: calc(env(safe-area-inset-top, 0px) + 10px) 8px 8px;
+  }
+  .toast { top: calc(env(safe-area-inset-top, 0px) + 12px); }
+  /* Скрим под прозрачный статус-бар в standalone-режиме тёмной версии */
+  .brand-premium .app::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background: rgba(0,0,0,.55);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    z-index: 65;
+    pointer-events: none;
+  }
 }
 
 /* ============================================================
@@ -320,12 +350,16 @@ html, body { margin: 0; padding: 0; }
   overscroll-behavior: contain;
   padding: 108px 16px 130px;
   transform: translateX(100%);
-  transition: transform 320ms var(--ease-sheet);
+  transition: transform 320ms var(--ease-sheet), visibility 0s linear 320ms;
   scrollbar-width: none;
   visibility: hidden;
 }
 .push::-webkit-scrollbar { display: none; }
-.push.open { transform: translateX(0); visibility: visible; }
+.push.open {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 320ms var(--ease-sheet);
+}
 .push-nav {
   position: sticky;
   top: 0;
@@ -966,7 +1000,9 @@ html, body { margin: 0; padding: 0; }
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--t-med) var(--ease-out), transform var(--t-med) var(--ease-out);
-  white-space: nowrap;
+  max-width: min(92%, 380px);
+  text-align: center;
+  border-radius: 22px;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast .t-xp { color: var(--gold); }

@@ -1,0 +1,14 @@
+{
+  "name": "Вектор Капитал",
+  "short_name": "Вектор",
+  "description": "Инвестиции для новичков",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F2F7",
+  "theme_color": "#F2F2F7",
+  "start_url": "./vektor.html",
+  "icons": [
+    { "src": "assets/icon-vektor-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icon-vektor-180.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

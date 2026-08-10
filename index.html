@@ -2,9 +2,16 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Копилка — прототип iOS</title>
 <meta name="theme-color" content="#F2F2F7">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icon-kopilka-180.png">
+<link rel="icon" type="image/png" href="assets/icon-kopilka-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Копилка">
 <link rel="stylesheet" href="assets/system.css">
 </head>
 <body class="studio">
@@ -289,6 +296,18 @@
           <span style="font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;" data-bind="goal-summary">52 340 ₽ из 100 000 ₽ · к июню</span>
         </div>
         <div class="bar" style="margin-top:12px;"><i data-bind="goal-bar" style="width:52%;"></i></div>
+      </div>
+
+      <div class="section-h">Версии прототипа</div>
+      <div class="card flush">
+        <a class="row no-icon" href="vektor.html" style="text-decoration:none;color:var(--ink);">
+          <span class="r-body"><span class="r-title">Вектор Капитал</span><span class="r-sub" style="display:block;">синяя версия · light</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </a>
+        <a class="row no-icon" href="premium.html" style="text-decoration:none;color:var(--ink);">
+          <span class="r-body"><span class="r-title">Вектор Капитал Premium</span><span class="r-sub" style="display:block;">тёмная версия · частный банк</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </a>
       </div>
     </section>
 

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EBE4D3;font-family:'Golos Text',system-ui,sans-serif;color:#26200F;
+--bg:#F8F3E9;--card:#FFFFFF;--ink:#26200F;--muted:#8B8068;--line:#EAE1CC;--soft:#F1EADA;
+--accent:#FFB020;--accent-ink:#3A2600;--deep:#A05C00;--gain:#2E7D4F;--gainbg:#E4F0E6;--losbg:#EFEAE0;}
+body.pk-dark{--bg:#1B160C;--card:#272113;--ink:#F4EDDF;--muted:#A2977E;--line:#3A3320;--soft:#332C1A;
+--deep:#FFC963;--gain:#8CC9A2;--gainbg:#28352C;--losbg:#352F1F;}
+a{color:#A05C00}a:hover{color:#7A4600}
+@keyframes pkfall{to{transform:translateY(900px) rotate(720deg);opacity:.85}}
+@keyframes pkpop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes pkup{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes pkfade{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:52px;justify-content:center;align-items:flex-start;padding:48px 32px 80px;">
+  <div style="width:400px;display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:34px;height:34px;border-radius:10px;background:#FFB020;display:flex;align-items:center;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 18L18 6M9 6h9v9" style="fill:none;stroke:#3A2600;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+      </div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:15px;font-weight:800;letter-spacing:.02em;">ВЕКТОР КАПИТАЛ</div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:24px;padding:24px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 12px 32px rgba(70,50,0,.07);display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.55;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A05C00;">КОНЦЕПЦИЯ</div>
+      <div><b>1.</b> Инвестиции по-человечески: один экран — одно действие, суммы в рублях, без жаргона и тикеров.</div>
+      <div><b>2.</b> Цифры — герои: главный экран отвечает на вопрос «сколько у меня денег и растут ли они».</div>
+      <div><b>3.</b> Цель «Отпуск» — крючок №1: крупный прогресс и подсказки, как дойти быстрее.</div>
+      <div><b>4.</b> Честная геймификация: XP за визиты, уроки и выдержку — никогда за частые сделки.</div>
+      <div><b>5.</b> Спокойствие: рост — тёплая зелень; просадка — нейтральный тон с поддерживающей подписью.</div>
+      <div><b>6.</b> Маскот Вик — монетка со стрелкой — ведёт новичка и празднует правильные шаги.</div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:24px;padding:24px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 12px 32px rgba(70,50,0,.07);display:flex;flex-direction:column;gap:8px;font-size:13.5px;line-height:1.5;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A05C00;">ПЕТЛЯ УДЕРЖАНИЯ</div>
+      <div>• Ежедневный визит: <b>+5 XP</b> и серия — тост через секунду после входа</div>
+      <div>• <b>Задания на сегодня</b> (3 шт.) с кольцом прогресса на главном</div>
+      <div>• <b>Урок дня</b> открывается прямо из заданий: 3 шага + вопрос, +20 XP</div>
+      <div>• Дерево курсов в «Обучении»: пройденное ✓, текущее, заблокированное</div>
+      <div>• Уровни, бейджи, цель — в профиле; уведомления возвращают в петлю</div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:24px;padding:24px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 12px 32px rgba(70,50,0,.07);display:flex;flex-direction:column;gap:14px;font-size:13.5px;">
+      <div style="font-size:12px;font-weight:800;letter-spacing:.12em;color:#A05C00;">ДИЗАЙН-ТОКЕНЫ</div>
+      <div>
+        <div style="font-weight:700;margin-bottom:8px;">Палитра · светлая / тёмная</div>
+        <div style="display:flex;gap:8px;">
+          <div style="width:42px;height:42px;border-radius:12px;background:#F8F3E9;border:1px solid #EAE1CC;" title="фон #F8F3E9"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#FFFFFF;border:1px solid #EAE1CC;" title="карточка #FFFFFF"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#26200F;" title="текст #26200F"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#FFB020;" title="акцент #FFB020"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#2E7D4F;" title="рост #2E7D4F"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#8B8068;" title="просадка #8B8068"></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <div style="width:42px;height:42px;border-radius:12px;background:#1B160C;" title="фон тёмный #1B160C"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#272113;" title="карточка тёмная #272113"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#F4EDDF;border:1px solid #EAE1CC;" title="текст тёмный #F4EDDF"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#FFC963;" title="акцент-текст тёмный #FFC963"></div>
+          <div style="width:42px;height:42px;border-radius:12px;background:#8CC9A2;" title="рост тёмный #8CC9A2"></div>
+        </div>
+        <div style="color:#8B8068;margin-top:6px;">фон · карточка · текст · акцент · рост · просадка (не красный)</div>
+      </div>
+      <div><b>Шрифты:</b> Unbounded — только логотип; Golos Text — весь интерфейс, суммы 800–900 с табличными цифрами.</div>
+      <div><b>Радиусы:</b> карточки 24 · кнопки 16 · чипы 999. <b>Тени:</b> двухслойные, тёплые, мягкие.</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="height:52px;padding:0 24px;border-radius:16px;background:#FFB020;color:#3A2600;font-weight:800;font-size:16px;display:flex;align-items:center;">Купить</div>
+        <div><b>Кнопки:</b> 52–60 px, одно главное действие на экран, нажатие сжимает на 3 %.</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px;align-items:center;">
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button onClick="{{ toggleDark }}" style="height:38px;padding:0 16px;border-radius:999px;border:1px solid #D6C9AC;background:#FFFFFF;font-family:'Golos Text',sans-serif;font-size:13px;font-weight:700;color:#26200F;cursor:pointer;">{{ themeLabel }}</button>
+      <div style="display:flex;gap:4px;background:#E2D9C2;border-radius:999px;padding:4px;">
+        <button onClick="{{ demoFull }}" style="{{ segFullStyle }}">Есть портфель</button>
+        <button onClick="{{ demoEmpty }}" style="{{ segEmptyStyle }}">Новичок</button>
+      </div>
+    </div>
+    <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 390 }}" height="{{ 844 }}" dark="{{ isDark }}" hint-size="390px,844px">
+      <div style="position:relative;height:100%;background:var(--bg);color:var(--ink);font-family:'Golos Text',system-ui,sans-serif;overflow:hidden;">
+
+        <!-- ГЛАВНЫЙ -->
+        <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="Главный — портфель" style="position:absolute;inset:0;overflow-y:auto;padding:62px 20px 120px;box-sizing:border-box;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 18L18 6M9 6h9v9" style="fill:none;stroke:var(--accent-ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+            </div>
+            <div style="font-family:'Unbounded',sans-serif;font-size:11px;font-weight:800;letter-spacing:.04em;flex:1;">ВЕКТОР КАПИТАЛ</div>
+            <button onClick="{{ openNotif }}" style="position:relative;width:40px;height:40px;border:none;border-radius:999px;background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.6 2.6H4.4zM10 21.2h4" style="fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+              <sc-if value="{{ bellBadge }}" hint-placeholder-val="{{ true }}">
+                <div style="position:absolute;top:7px;right:7px;width:16px;height:16px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;">3</div>
+              </sc-if>
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:16px;">
+            <div style="font-size:21px;font-weight:900;flex:1;">Здравствуйте, Анна!</div>
+            <div style="display:flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;padding:7px 12px;">
+              <svg width="14" height="16" viewBox="0 0 24 26"><path d="M12 2c1.4 4-5 6-5 12a5 5 0 0 0 10 0c0-2.4-1.2-3.8-1.9-5-.9 1.3-1.9 1.7-1.9 1.7C14.4 8 14 4.6 12 2z" style="fill:var(--deep);"></path></svg>
+              <span style="font-size:13px;font-weight:800;color:var(--deep);">5</span>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;">
+              <span>Уровень 2 · Новичок</span><span>{{ xpLabel }} XP</span>
+            </div>
+            <div style="height:7px;border-radius:999px;background:var(--soft);overflow:hidden;">
+              <div style="height:100%;border-radius:999px;background:var(--accent);width:{{ xpPct }};transition:width .6s ease;"></div>
+            </div>
+          </div>
+
+          <sc-if value="{{ hasMoney }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="margin-top:24px;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--muted);">ВАШИ ДЕНЬГИ</div>
+            <div style="font-size:46px;font-weight:900;letter-spacing:-1.2px;line-height:1.08;margin-top:4px;font-variant-numeric:tabular-nums;">52 340 ₽</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:10px;">
+              <div style="background:var(--gainbg);color:var(--gain);font-size:13.5px;font-weight:800;border-radius:999px;padding:6px 12px;">{{ periodChange }}</div>
+              <span style="font-size:13px;color:var(--muted);">Вчера +320 ₽ · деньги работают</span>
+            </div>
+            <svg width="100%" height="72" viewBox="0 0 350 72" preserveAspectRatio="none" style="display:block;margin-top:14px;">
+              <defs><linearGradient id="vkgrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" style="stop-color:#2E7D4F;stop-opacity:.22;"></stop>
+                <stop offset="100%" style="stop-color:#2E7D4F;stop-opacity:0;"></stop>
+              </linearGradient></defs>
+              <path d="{{ sparkArea }}" style="fill:url(#vkgrad);"></path>
+              <path d="{{ sparkPath }}" style="fill:none;stroke:var(--gain);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;"></path>
+            </svg>
+            <div style="display:flex;gap:8px;margin-top:12px;">
+              <sc-for list="{{ periods }}" as="p" hint-placeholder-count="3">
+                <button onClick="{{ p.onTap }}" style="{{ p.style }}">{{ p.label }}</button>
+              </sc-for>
+            </div>
+            <div style="font-size:13.5px;color:var(--muted);margin-top:12px;">Вложили 50 000 ₽ — заработали <b style="color:var(--gain);">2 340 ₽</b></div>
+            <div style="display:flex;gap:12px;margin-top:16px;">
+              <button onClick="{{ onTopUp }}" style-active="transform:scale(.97);" style="flex:1;height:56px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;transition:transform .1s;">Пополнить</button>
+              <button onClick="{{ goCatalog }}" style-active="transform:scale(.97);" style="flex:1;height:56px;border:1.5px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;transition:transform .1s;">Купить</button>
+            </div>
+
+            <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:22px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <svg width="46" height="46" viewBox="0 0 46 46" style="flex:none;transform:rotate(-90deg);">
+                  <circle cx="23" cy="23" r="19" style="fill:none;stroke:var(--soft);stroke-width:6;"></circle>
+                  <circle cx="23" cy="23" r="19" style="fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;" stroke-dasharray="{{ questDash }}"></circle>
+                </svg>
+                <div style="flex:1;">
+                  <div style="font-size:16px;font-weight:800;">Задания на сегодня</div>
+                  <div style="font-size:13px;color:var(--muted);margin-top:2px;">{{ questSummary }}</div>
+                </div>
+              </div>
+              <sc-for list="{{ dayQuests }}" as="q" hint-placeholder-count="3">
+                <button onClick="{{ q.onTap }}" style="width:100%;display:flex;align-items:center;gap:12px;border:none;background:none;padding:13px 0 0;cursor:pointer;font-family:'Golos Text',sans-serif;text-align:left;">
+                  <div style="width:26px;height:26px;border-radius:999px;background:{{ q.bg }};display:flex;align-items:center;justify-content:center;flex:none;">
+                    <sc-if value="{{ q.done }}" hint-placeholder-val="{{ false }}">
+                      <svg width="13" height="13" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" style="fill:none;stroke:var(--accent-ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+                    </sc-if>
+                  </div>
+                  <div style="flex:1;font-size:14.5px;font-weight:600;color:{{ q.tc }};">{{ q.t }}</div>
+                  <div style="font-size:13px;font-weight:800;color:var(--deep);flex:none;">+{{ q.xp }} XP</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:14px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:40px;height:40px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:var(--deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"><path d="M8 8V6.5A2.5 2.5 0 0 1 10.5 4h3A2.5 2.5 0 0 1 16 6.5V8M4 8h16v11H4z"></path></svg>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-size:16px;font-weight:800;">Цель «Отпуск»</div>
+                  <div style="font-size:13px;color:var(--muted);">100 000 ₽ к июню</div>
+                </div>
+                <div style="font-size:18px;font-weight:900;color:var(--deep);font-variant-numeric:tabular-nums;">52 %</div>
+              </div>
+              <div style="height:14px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:14px;">
+                <div style="height:100%;width:52%;border-radius:999px;background:var(--accent);transition:width .6s ease;"></div>
+              </div>
+              <div style="font-size:14px;margin-top:10px;line-height:1.45;">Осталось 47 660 ₽ — вы на полпути!</div>
+              <button onClick="{{ onGoalTip }}" style="margin-top:6px;border:none;background:none;padding:0;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;color:var(--deep);cursor:pointer;">Как дойти быстрее →</button>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:24px;">
+              <div style="font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--muted);">ВАШИ КОРЗИНЫ</div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--gain);">Разложено по 4 — отлично</div>
+            </div>
+            <sc-for list="{{ holdings }}" as="h" hint-placeholder-count="4">
+              <div style="background:var(--card);border-radius:20px;padding:14px 16px;margin-top:10px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:44px;height:44px;border-radius:14px;background:{{ h.c }};color:#FFF;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex:none;">{{ h.l }}</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:15px;font-weight:700;">{{ h.name }}</div>
+                    <div style="display:flex;align-items:center;gap:8px;margin-top:3px;">
+                      <div style="width:72px;height:5px;border-radius:999px;background:var(--soft);overflow:hidden;"><div style="height:100%;border-radius:999px;background:{{ h.c }};width:{{ h.share }};"></div></div>
+                      <span style="font-size:12px;color:var(--muted);">{{ h.share }} денег</span>
+                    </div>
+                  </div>
+                  <div style="text-align:right;flex:none;">
+                    <div style="font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;">{{ h.amt }}</div>
+                    <div style="font-size:12.5px;font-weight:800;color:{{ h.chipC }};margin-top:2px;">{{ h.chg }}</div>
+                  </div>
+                </div>
+                <sc-if value="{{ h.note }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--line);line-height:1.45;">{{ h.note }}</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:pkup .35s ease;">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:30px;">
+              <svg width="92" height="92" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" style="fill:var(--accent);"></circle><path d="M14 26L26 14M17.5 14H26v8.5" style="fill:none;stroke:var(--accent-ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.3;"></path><circle cx="15.5" cy="17.5" r="2.2" style="fill:var(--accent-ink);"></circle><circle cx="24.5" cy="17.5" r="2.2" style="fill:var(--accent-ink);"></circle><path d="M15 23q5 4.4 10 0" style="fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linecap:round;"></path></svg>
+              <div style="background:var(--card);border-radius:18px;padding:14px 18px;margin-top:14px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);font-size:15px;font-weight:600;line-height:1.45;max-width:300px;">Привет, я Вик! Готовы начать? Это 2 минуты — и никаких сложных слов.</div>
+            </div>
+            <div style="background:var(--card);border-radius:24px;padding:22px;margin-top:20px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--deep);">КВЕСТ · ШАГ 1 ИЗ 3</div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--muted);">бейдж + 100 XP</div>
+              </div>
+              <div style="font-size:20px;font-weight:900;line-height:1.25;margin-top:8px;">Соберите первый портфель за 3 шага</div>
+              <div style="height:10px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:14px;">
+                <div style="height:100%;width:33%;border-radius:999px;background:var(--accent);transition:width .6s;"></div>
+              </div>
+              <sc-for list="{{ questSteps }}" as="q" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;margin-top:14px;">
+                  <div style="width:30px;height:30px;border-radius:999px;background:{{ q.bg }};color:{{ q.fg }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex:none;border:1.5px solid var(--line);">{{ q.mark }}</div>
+                  <div style="font-size:15px;font-weight:600;color:{{ q.tc }};">{{ q.t }}</div>
+                </div>
+              </sc-for>
+              <button onClick="{{ goCatalog }}" style-active="transform:scale(.97);" style="width:100%;height:56px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;margin-top:18px;transition:transform .1s;">Продолжить квест</button>
+            </div>
+            <div style="background:var(--card);border-radius:20px;padding:16px 18px;margin-top:14px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted);">
+                <svg width="16" height="16" viewBox="0 0 24 24" style="flex:none;fill:none;stroke:var(--gain);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path></svg>
+                Лицензия Банка России
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted);">
+                <svg width="16" height="16" viewBox="0 0 24 24" style="flex:none;fill:none;stroke:var(--gain);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"><path d="M4 8h16v11H4zM8 8V6.5A2.5 2.5 0 0 1 10.5 4h3A2.5 2.5 0 0 1 16 6.5V8"></path></svg>
+                Бумаги хранятся в депозитарии — отдельно от денег компании
+              </div>
+            </div>
+            <div style="text-align:center;font-size:13.5px;color:var(--muted);margin-top:14px;">На счёте 1 000 ₽ — уже пополнили, отличный старт!</div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- КАТАЛОГ -->
+        <sc-if value="{{ showCat }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Каталог" style="position:absolute;inset:0;overflow-y:auto;padding:70px 20px 120px;box-sizing:border-box;animation:pkfade .25s ease;">
+          <div style="font-size:30px;font-weight:900;">Каталог</div>
+          <div style="font-size:14px;color:var(--muted);margin-top:4px;">Во что вложить — простыми словами</div>
+          <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+              <button onClick="{{ f.onTap }}" style="{{ f.style }}">{{ f.label }}</button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ showIdeaBanner }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ goIdeas }}" style="width:100%;text-align:left;background:var(--soft);border-radius:24px;padding:20px;margin-top:14px;border:1.5px solid var(--line);cursor:pointer;font-family:'Golos Text',sans-serif;color:var(--ink);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:5px 10px;">ИДЕЯ ДНЯ</div>
+              <div style="background:var(--gainbg);color:var(--gain);font-size:12px;font-weight:800;border-radius:999px;padding:5px 10px;">спокойно</div>
+            </div>
+            <div style="font-size:17px;font-weight:800;margin-top:10px;">Облигации для спокойного старта</div>
+            <div style="font-size:13.5px;color:var(--muted);margin-top:5px;line-height:1.5;">Вложили 12 000 ₽ — через год примерно <b style="color:var(--gain);">14 600 ₽</b> · смотреть в «Идеях» →</div>
+          </button>
+          </sc-if>
+          <sc-for list="{{ catalog }}" as="k" hint-placeholder-count="6">
+            <button onClick="{{ k.onTap }}" style-active="transform:scale(.985);" style="width:100%;text-align:left;background:var(--card);border:none;border-radius:20px;padding:16px;margin-top:12px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);display:flex;align-items:center;gap:12px;cursor:pointer;font-family:'Golos Text',sans-serif;color:var(--ink);transition:transform .1s;">
+              <div style="width:48px;height:48px;border-radius:14px;background:{{ k.c }};color:#FFF;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;flex:none;">{{ k.l }}</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:16px;font-weight:800;">{{ k.name }}</div>
+                <div style="font-size:13px;color:var(--muted);margin-top:2px;">{{ k.sub }}</div>
+                <div style="font-size:13px;margin-top:6px;">{{ k.ex }}</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none;">
+                <div style="background:{{ k.riskBg }};color:{{ k.riskC }};font-size:12px;font-weight:800;border-radius:999px;padding:5px 10px;">{{ k.risk }}</div>
+                <svg width="8" height="14" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" style="fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+              </div>
+            </button>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- КАРТОЧКА СБЕРБАНКА -->
+        <sc-if value="{{ showSber }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Карточка — Сбербанк" style="position:absolute;inset:0;overflow-y:auto;padding:62px 20px 120px;box-sizing:border-box;animation:pkfade .25s ease;">
+          <button onClick="{{ backToCat }}" style="display:flex;align-items:center;gap:6px;border:none;background:var(--soft);border-radius:999px;padding:10px 16px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;">
+            <svg width="8" height="14" viewBox="0 0 8 14"><path d="M7 1L1 7l6 6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+            Каталог
+          </button>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:20px;">
+            <div style="width:64px;height:64px;border-radius:18px;background:#3E8E5A;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;">С</div>
+            <div>
+              <div style="font-size:26px;font-weight:900;">Сбербанк</div>
+              <div style="font-size:14px;color:var(--muted);">Акции · банк</div>
+            </div>
+          </div>
+          <div style="font-size:15px;line-height:1.55;margin-top:16px;">Самый большой банк страны: картами и приложением Сбера пользуется каждый второй. Покупая акцию, вы становитесь совладельцем банка — и зарабатываете, когда он растёт.</div>
+          <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:18px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);">
+            <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--muted);">ЕСЛИ ВЛОЖИТЬ 10 000 ₽</div>
+            <div style="font-size:26px;font-weight:900;margin-top:6px;font-variant-numeric:tabular-nums;">через год ≈ <span style="color:var(--gain);">11 200 ₽</span></div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5;">Ориентир по прошлым годам, не гарантия. Цена может колебаться.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:16px;padding:14px 16px;margin-top:12px;">
+            <div style="background:var(--accent);color:var(--accent-ink);font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 10px;flex:none;">средне</div>
+            <div style="font-size:13.5px;line-height:1.45;">Цена «дышит», но на горизонте от года колебания обычно сглаживаются.</div>
+          </div>
+          <button onClick="{{ startBuy }}" style-active="transform:scale(.97);" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:18px;transition:transform .1s;">Купить</button>
+          <button onClick="{{ toggleExp }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;border:none;background:none;padding:18px 4px 6px;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;color:var(--muted);cursor:pointer;">
+            Для опытных
+            <svg width="14" height="8" viewBox="0 0 14 8" style="transform:{{ expArrow }};transition:transform .2s;"><path d="M1 1l6 6 6-6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+          </button>
+          <sc-if value="{{ expOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="background:var(--card);border-radius:20px;padding:18px;margin-top:8px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);animation:pkup .25s ease;">
+              <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--muted);">ЦЕНА ЗА 5 ЛЕТ</div>
+              <svg width="100%" height="80" viewBox="0 0 320 80" preserveAspectRatio="none" style="display:block;margin-top:10px;">
+                <path d="{{ sberArea }}" style="fill:url(#vkgrad2);"></path>
+                <defs><linearGradient id="vkgrad2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" style="stop-color:#2E7D4F;stop-opacity:.2;"></stop>
+                  <stop offset="100%" style="stop-color:#2E7D4F;stop-opacity:0;"></stop>
+                </linearGradient></defs>
+                <path d="{{ sberPath }}" style="fill:none;stroke:var(--gain);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path>
+              </svg>
+              <div style="display:flex;gap:8px;margin-top:14px;font-size:13px;">
+                <div style="flex:1;background:var(--soft);border-radius:12px;padding:10px;"><div style="color:var(--muted);">Цена акции</div><div style="font-weight:800;margin-top:2px;">312 ₽</div></div>
+                <div style="flex:1;background:var(--soft);border-radius:12px;padding:10px;"><div style="color:var(--muted);">Дивиденды</div><div style="font-weight:800;margin-top:2px;">≈ 10 % в год</div></div>
+                <div style="flex:1;background:var(--soft);border-radius:12px;padding:10px;"><div style="color:var(--muted);">P/E</div><div style="font-weight:800;margin-top:2px;">4,1</div></div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- ИДЕИ -->
+        <sc-if value="{{ showIdeas }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Идеи" style="position:absolute;inset:0;overflow-y:auto;padding:70px 20px 120px;box-sizing:border-box;animation:pkfade .25s ease;">
+          <div style="font-size:30px;font-weight:900;">Идеи</div>
+          <div style="font-size:14px;color:var(--muted);margin-top:4px;">Готовые решения — с объяснением, почему</div>
+          <div style="background:var(--card);border-radius:24px;padding:22px;margin-top:16px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);border:1.5px solid var(--accent);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:5px 10px;">ИДЕЯ ДНЯ</div>
+              <div style="background:var(--gainbg);color:var(--gain);font-size:12px;font-weight:800;border-radius:999px;padding:5px 10px;">спокойно</div>
+              <div style="background:var(--soft);color:var(--muted);font-size:12px;font-weight:800;border-radius:999px;padding:5px 10px;">на 1–2 года</div>
+            </div>
+            <div style="font-size:19px;font-weight:900;margin-top:12px;line-height:1.3;">Облигации для спокойного старта</div>
+            <div style="font-size:14.5px;margin-top:8px;line-height:1.5;">Вложили 12 000 ₽ — через год примерно <b style="color:var(--gain);">14 600 ₽</b></div>
+            <div style="font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.55;">Почему сейчас: ставки высокие — государство и компании платят за ожидание больше обычного. Подходит для первой покупки: колебания маленькие.</div>
+            <button onClick="{{ goCatalog }}" style-active="transform:scale(.97);" style="width:100%;height:52px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin-top:16px;transition:transform .1s;">Смотреть в каталоге</button>
+          </div>
+          <div style="margin-top:22px;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--muted);">ЕЩЁ ТРИ ИДЕИ</div>
+          <sc-for list="{{ ideas }}" as="i" hint-placeholder-count="3">
+            <div style="background:var(--card);border-radius:20px;padding:18px;margin-top:12px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);">
+              <button onClick="{{ i.onTap }}" style="width:100%;display:flex;align-items:center;gap:12px;border:none;background:none;padding:0;cursor:pointer;font-family:'Golos Text',sans-serif;text-align:left;color:var(--ink);">
+                <div style="flex:1;">
+                  <div style="font-size:15.5px;font-weight:800;">{{ i.t }}</div>
+                  <div style="font-size:13px;color:var(--muted);margin-top:3px;">{{ i.sub }}</div>
+                </div>
+                <div style="background:{{ i.riskBg }};color:{{ i.riskC }};font-size:12px;font-weight:800;border-radius:999px;padding:5px 10px;flex:none;">{{ i.risk }}</div>
+                <svg width="14" height="8" viewBox="0 0 14 8" style="flex:none;transform:{{ i.arrow }};transition:transform .2s;"><path d="M1 1l6 6 6-6" style="fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+              </button>
+              <sc-if value="{{ i.open }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13.5px;color:var(--muted);line-height:1.55;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);animation:pkup .2s ease;">{{ i.why }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- ОБУЧЕНИЕ -->
+        <sc-if value="{{ showLearn }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Обучение" style="position:absolute;inset:0;overflow-y:auto;padding:70px 20px 120px;box-sizing:border-box;animation:pkfade .25s ease;">
+          <div style="display:flex;align-items:center;">
+            <div style="flex:1;">
+              <div style="font-size:30px;font-weight:900;">Обучение</div>
+              <div style="font-size:14px;color:var(--muted);margin-top:4px;">3 минуты в день — и рынок понятен</div>
+            </div>
+            <div style="background:var(--soft);border-radius:999px;padding:8px 13px;font-size:13px;font-weight:800;color:var(--deep);">{{ xpLabel }} XP</div>
+          </div>
+          <div style="margin-top:22px;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--muted);">РАЗДЕЛ 1 · ОСНОВЫ</div>
+          <div style="position:relative;margin-top:6px;">
+            <div style="position:absolute;left:21px;top:16px;bottom:16px;width:2px;background:var(--line);"></div>
+            <sc-for list="{{ lessons }}" as="l" hint-placeholder-count="5">
+              <button onClick="{{ l.onTap }}" style="position:relative;width:100%;display:flex;align-items:center;gap:14px;border:none;background:none;padding:11px 0;cursor:pointer;font-family:'Golos Text',sans-serif;text-align:left;">
+                <div style="width:44px;height:44px;border-radius:999px;background:{{ l.bg }};border:{{ l.border }};display:flex;align-items:center;justify-content:center;flex:none;position:relative;z-index:1;">
+                  <sc-if value="{{ l.done }}" hint-placeholder-val="{{ true }}">
+                    <svg width="17" height="17" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" style="fill:none;stroke:var(--accent-ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+                  </sc-if>
+                  <sc-if value="{{ l.locked }}" hint-placeholder-val="{{ false }}">
+                    <svg width="15" height="15" viewBox="0 0 24 24"><path d="M8 11V8a4 4 0 0 1 8 0v3M6 11h12v9H6z" style="fill:none;stroke:var(--muted);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+                  </sc-if>
+                  <sc-if value="{{ l.current }}" hint-placeholder-val="{{ false }}">
+                    <svg width="15" height="15" viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z" style="fill:var(--accent-ink);"></path></svg>
+                  </sc-if>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:15px;font-weight:700;color:{{ l.tc }};line-height:1.3;">{{ l.t }}</div>
+                  <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">{{ l.sub }}</div>
+                </div>
+                <sc-if value="{{ l.chip }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:800;border-radius:999px;padding:5px 10px;flex:none;">{{ l.chip }}</div>
+                </sc-if>
+              </button>
+            </sc-for>
+          </div>
+          <div style="background:var(--soft);border-radius:20px;padding:18px;margin-top:16px;border:1.5px solid var(--line);display:flex;align-items:center;gap:12px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" style="flex:none;"><path d="M8 11V8a4 4 0 0 1 8 0v3M6 11h12v9H6z" style="fill:none;stroke:var(--muted);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+            <div style="flex:1;">
+              <div style="font-size:14.5px;font-weight:800;color:var(--muted);">Раздел 2 · Спокойный инвестор</div>
+              <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">Откроется на уровне «Ученик» — осталось {{ xpLeft }} XP</div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ПРОФИЛЬ -->
+        <sc-if value="{{ showProf }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Профиль — игра" style="position:absolute;inset:0;overflow-y:auto;padding:70px 20px 120px;box-sizing:border-box;animation:pkfade .25s ease;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:60px;height:60px;border-radius:999px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;">А</div>
+            <div style="flex:1;">
+              <div style="font-size:24px;font-weight:900;">Анна</div>
+              <div style="font-size:14px;color:var(--muted);">Уровень 2 · Новичок</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;padding:8px 13px;">
+              <svg width="14" height="16" viewBox="0 0 24 26"><path d="M12 2c1.4 4-5 6-5 12a5 5 0 0 0 10 0c0-2.4-1.2-3.8-1.9-5-.9 1.3-1.9 1.7-1.9 1.7C14.4 8 14 4.6 12 2z" style="fill:var(--deep);"></path></svg>
+              <span style="font-size:13px;font-weight:800;color:var(--deep);">5 дней</span>
+            </div>
+          </div>
+
+          <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:20px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+              <div style="font-size:15.5px;font-weight:800;">Путь инвестора</div>
+              <div style="font-size:12.5px;color:var(--muted);">до «Ученика» {{ xpLeft }} XP</div>
+            </div>
+            <div style="display:flex;align-items:center;margin-top:16px;">
+              <sc-for list="{{ levels }}" as="lv" hint-placeholder-count="5">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;">
+                  <sc-if value="{{ lv.line }}" hint-placeholder-val="{{ true }}">
+                    <div style="position:absolute;top:13px;left:-50%;width:100%;height:2.5px;background:{{ lv.lineC }};"></div>
+                  </sc-if>
+                  <div style="width:27px;height:27px;border-radius:999px;background:{{ lv.bg }};border:2.5px solid {{ lv.bc }};box-sizing:border-box;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;">
+                    <sc-if value="{{ lv.done }}" hint-placeholder-val="{{ true }}">
+                      <svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" style="fill:none;stroke:var(--accent-ink);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+                    </sc-if>
+                  </div>
+                  <div style="font-size:9.5px;font-weight:700;color:{{ lv.tc }};text-align:center;line-height:1.2;">{{ lv.t }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="height:12px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:16px;">
+              <div style="height:100%;border-radius:999px;background:var(--accent);width:{{ xpPct }};transition:width .6s ease;"></div>
+            </div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px;">{{ xpLabel }} XP</div>
+          </div>
+
+          <div style="background:var(--card);border-radius:24px;padding:18px 20px;margin-top:12px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:40px;height:40px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none;">
+                <svg width="18" height="21" viewBox="0 0 24 26"><path d="M12 2c1.4 4-5 6-5 12a5 5 0 0 0 10 0c0-2.4-1.2-3.8-1.9-5-.9 1.3-1.9 1.7-1.9 1.7C14.4 8 14 4.6 12 2z" style="fill:var(--deep);"></path></svg>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:15.5px;font-weight:800;">Серия: 5 дней подряд</div>
+                <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">За визит или урок — не за сделки</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:14px;">
+              <sc-for list="{{ weekDays }}" as="w" hint-placeholder-count="7">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;">
+                  <div style="width:100%;height:34px;border-radius:10px;background:{{ w.bg }};display:flex;align-items:center;justify-content:center;">
+                    <sc-if value="{{ w.done }}" hint-placeholder-val="{{ true }}">
+                      <svg width="13" height="13" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" style="fill:none;stroke:var(--accent-ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+                    </sc-if>
+                  </div>
+                  <div style="font-size:10px;font-weight:700;color:var(--muted);">{{ w.d }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-top:22px;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--muted);">БЕЙДЖИ</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+            <sc-for list="{{ badges }}" as="b" hint-placeholder-count="4">
+              <div style="background:var(--card);border-radius:20px;padding:16px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);">
+                <div style="width:40px;height:40px;border-radius:999px;background:{{ b.bg }};display:flex;align-items:center;justify-content:center;">
+                  <sc-if value="{{ b.done }}" hint-placeholder-val="{{ true }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" style="fill:none;stroke:var(--accent-ink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+                  </sc-if>
+                  <sc-if value="{{ b.inWork }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:11.5px;font-weight:800;color:var(--muted);">{{ b.frac }}</span>
+                  </sc-if>
+                </div>
+                <div style="font-size:14px;font-weight:800;margin-top:10px;line-height:1.3;">{{ b.t }}</div>
+                <div style="font-size:12.5px;color:var(--muted);margin-top:3px;">{{ b.sub }}</div>
+                <sc-if value="{{ b.inWork }}" hint-placeholder-val="{{ false }}">
+                  <div style="height:6px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:10px;">
+                    <div style="height:100%;border-radius:999px;background:var(--accent);width:{{ b.pct }};"></div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:14px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:15.5px;font-weight:800;">Цель «Отпуск»</div>
+              <div style="font-size:14px;font-weight:900;color:var(--deep);">52 %</div>
+            </div>
+            <div style="height:10px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:10px;">
+              <div style="height:100%;width:52%;border-radius:999px;background:var(--accent);"></div>
+            </div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px;">52 340 ₽ из 100 000 ₽ · к июню</div>
+          </div>
+
+          <div style="background:var(--card);border-radius:24px;margin-top:14px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line);">
+              <span style="font-size:15px;font-weight:600;">Тёмная тема</span>
+              <button onClick="{{ toggleDark }}" style="width:50px;height:30px;border:none;border-radius:999px;background:{{ switchBg }};cursor:pointer;position:relative;transition:background .2s;">
+                <div style="position:absolute;top:3px;left:{{ switchKnob }};width:24px;height:24px;border-radius:999px;background:#FFF;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></div>
+              </button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line);">
+              <span style="font-size:15px;font-weight:600;">Уведомления</span>
+              <span style="font-size:13.5px;color:var(--muted);">Только полезные</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;">
+              <span style="font-size:15px;font-weight:600;">Помощь</span>
+              <span style="font-size:13.5px;color:var(--muted);">Ответим простыми словами</span>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- УВЕДОМЛЕНИЯ -->
+        <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Уведомления" style="position:absolute;inset:0;background:var(--bg);z-index:34;overflow-y:auto;padding:64px 20px 40px;box-sizing:border-box;animation:pkup .25s ease;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:26px;font-weight:900;">Уведомления</div>
+            <button onClick="{{ closeNotif }}" style="width:40px;height:40px;border:none;border-radius:999px;background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" style="fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;"></path></svg></button>
+          </div>
+          <sc-for list="{{ notifs }}" as="n" hint-placeholder-count="3">
+            <div style="background:var(--card);border-radius:20px;padding:16px 18px;margin-top:12px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:38px;height:38px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none;">
+                <svg width="17" height="17" viewBox="0 0 24 24"><path d="{{ n.d }}" style="fill:none;stroke:var(--deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:14.5px;font-weight:700;line-height:1.4;">{{ n.t }}</div>
+                <div style="font-size:12.5px;color:var(--muted);margin-top:3px;">{{ n.time }}</div>
+              </div>
+            </div>
+          </sc-for>
+          <div style="text-align:center;font-size:13px;color:var(--muted);margin-top:20px;line-height:1.5;">Никаких «срочно покупайте»: напоминаем только о привычке, уроках и цели.</div>
+        </div>
+        </sc-if>
+
+        <!-- УРОК (оверлей) -->
+        <sc-if value="{{ lessonOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Урок дня" style="position:absolute;inset:0;background:var(--bg);z-index:44;overflow-y:auto;padding:64px 24px 40px;box-sizing:border-box;animation:pkup .25s ease;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="flex:1;display:flex;gap:6px;">
+              <div style="flex:1;height:5px;border-radius:999px;background:{{ dot1 }};"></div>
+              <div style="flex:1;height:5px;border-radius:999px;background:{{ dot2 }};"></div>
+              <div style="flex:1;height:5px;border-radius:999px;background:{{ dot3 }};"></div>
+            </div>
+            <button onClick="{{ closeLesson }}" style="width:40px;height:40px;border:none;border-radius:999px;background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" style="fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;"></path></svg></button>
+          </div>
+          <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--deep);margin-top:24px;">УРОК ДНЯ · 3 МИН · +20 XP</div>
+
+          <sc-if value="{{ les1 }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:pkup .3s ease;">
+            <div style="font-size:26px;font-weight:900;line-height:1.25;margin-top:10px;">Почему цены прыгают</div>
+            <svg width="100%" height="90" viewBox="0 0 320 90" preserveAspectRatio="none" style="display:block;margin-top:22px;">
+              <path d="M0 60 L27 48 L53 66 L80 40 L107 55 L133 30 L160 47 L187 24 L213 38 L240 18 L267 30 L293 12 L320 20" style="fill:none;stroke:var(--gain);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;"></path>
+            </svg>
+            <div style="font-size:16.5px;line-height:1.6;margin-top:20px;">Цена акции меняется каждый день — как настроение рынка. Кто-то покупает, кто-то продаёт, и цена «дышит».</div>
+            <div style="font-size:16.5px;line-height:1.6;margin-top:12px;">Это не поломка — это нормальная жизнь биржи.</div>
+            <button onClick="{{ lesNext }}" style-active="transform:scale(.97);" style="width:100%;height:56px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;margin-top:28px;transition:transform .1s;">Дальше</button>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ les2 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:pkup .3s ease;">
+            <div style="font-size:26px;font-weight:900;line-height:1.25;margin-top:10px;">Чем длиннее срок — тем спокойнее</div>
+            <svg width="100%" height="90" viewBox="0 0 320 90" preserveAspectRatio="none" style="display:block;margin-top:22px;">
+              <path d="M0 78 C 80 74, 120 60, 170 48 C 220 36, 270 26, 320 12" style="fill:none;stroke:var(--gain);stroke-width:2.6;stroke-linecap:round;"></path>
+            </svg>
+            <div style="font-size:16.5px;line-height:1.6;margin-top:20px;">Дневные скачки на горизонте 3–5 лет превращаются в ровную линию роста.</div>
+            <div style="font-size:16.5px;line-height:1.6;margin-top:12px;">Поэтому для долгой цели — как ваш «Отпуск» — колебания почти не важны.</div>
+            <button onClick="{{ lesNext }}" style-active="transform:scale(.97);" style="width:100%;height:56px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;margin-top:28px;transition:transform .1s;">Дальше</button>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ les3 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:pkup .3s ease;">
+            <div style="font-size:26px;font-weight:900;line-height:1.25;margin-top:10px;">Проверим себя</div>
+            <div style="font-size:16.5px;line-height:1.55;margin-top:14px;">Ваш портфель просел на 2 % за день. Что делаете?</div>
+            <button onClick="{{ pickWrong }}" style="{{ wrongStyle }}">Срочно всё продать</button>
+            <button onClick="{{ pickRight }}" style="{{ rightStyle }}">Ничего: для долгой цели это нормально</button>
+            <sc-if value="{{ pickedWrong }}" hint-placeholder-val="{{ false }}">
+              <div style="background:var(--soft);border-radius:16px;padding:14px 16px;margin-top:14px;font-size:14px;line-height:1.5;animation:pkup .2s ease;">Не спешите: продажа в просадку закрепляет убыток. Попробуйте ещё раз.</div>
+            </sc-if>
+            <sc-if value="{{ pickedRight }}" hint-placeholder-val="{{ false }}">
+              <div style="background:var(--gainbg);color:var(--gain);border-radius:16px;padding:14px 16px;margin-top:14px;font-size:14px;font-weight:700;line-height:1.5;animation:pkup .2s ease;">Верно! Спокойствие — суперсила инвестора.</div>
+            </sc-if>
+            <button onClick="{{ finishLesson }}" style="{{ finishStyle }}">Завершить · +20 XP</button>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- ПОКУПКА (оверлей) -->
+        <sc-if value="{{ buyOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Покупка" style="position:absolute;inset:0;background:var(--bg);z-index:30;overflow-y:auto;padding:64px 20px 40px;box-sizing:border-box;animation:pkup .25s ease;">
+          <sc-if value="{{ buy1 }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);">ШАГ 1 ИЗ 2</div>
+              <button onClick="{{ closeBuy }}" style="width:40px;height:40px;border:none;border-radius:999px;background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" style="fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;"></path></svg></button>
+            </div>
+            <div style="font-size:28px;font-weight:900;margin-top:10px;">Сколько вложить?</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-top:36px;">
+              <button onClick="{{ decAmount }}" style-active="transform:scale(.94);" style="width:56px;height:56px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);font-size:26px;font-weight:700;color:var(--ink);cursor:pointer;transition:transform .1s;">−</button>
+              <div style="font-size:44px;font-weight:900;letter-spacing:-1px;min-width:172px;text-align:center;font-variant-numeric:tabular-nums;">{{ amountLabel }} ₽</div>
+              <button onClick="{{ incAmount }}" style-active="transform:scale(.94);" style="width:56px;height:56px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);font-size:26px;font-weight:700;color:var(--ink);cursor:pointer;transition:transform .1s;">+</button>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:22px;">
+              <sc-for list="{{ presets }}" as="p" hint-placeholder-count="3">
+                <button onClick="{{ p.onTap }}" style="{{ p.style }}">{{ p.label }}</button>
+              </sc-for>
+            </div>
+            <div style="text-align:center;font-size:14.5px;color:var(--muted);margin-top:22px;">Через год — примерно <b style="color:var(--gain);">{{ estLabel }}</b></div>
+            <div style="text-align:center;font-size:13px;color:var(--muted);margin-top:6px;">Покупаем на сумму, а не «лотами» — так проще</div>
+            <button onClick="{{ toConfirm }}" style-active="transform:scale(.97);" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:32px;transition:transform .1s;">Дальше</button>
+          </div>
+          </sc-if>
+          <sc-if value="{{ buy2 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);">ШАГ 2 ИЗ 2</div>
+              <button onClick="{{ closeBuy }}" style="width:40px;height:40px;border:none;border-radius:999px;background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" style="fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;"></path></svg></button>
+            </div>
+            <div style="font-size:28px;font-weight:900;margin-top:10px;">Всё верно?</div>
+            <div style="background:var(--card);border-radius:24px;padding:24px;margin-top:20px;box-shadow:0 1px 2px rgba(70,50,0,.04),0 10px 28px rgba(70,50,0,.06);text-align:center;">
+              <div style="width:56px;height:56px;border-radius:16px;background:#3E8E5A;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:800;margin:0 auto;">С</div>
+              <div style="font-size:20px;font-weight:900;margin-top:12px;line-height:1.35;">Вы покупаете<br>Сбербанк на {{ amountLabel }} ₽</div>
+            </div>
+            <div style="background:var(--card);border-radius:20px;margin-top:12px;box-shadow:0 1px 2px rgba(70,50,0,.03),0 8px 22px rgba(70,50,0,.05);overflow:hidden;">
+              <div style="display:flex;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--line);font-size:14.5px;"><span style="color:var(--muted);">Когда купим</span><b>Сразу</b></div>
+              <div style="display:flex;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--line);font-size:14.5px;"><span style="color:var(--muted);">Комиссия</span><b>0 ₽</b></div>
+              <div style="display:flex;justify-content:space-between;padding:15px 18px;font-size:14.5px;"><span style="color:var(--muted);">Продать можно</span><b>В любой день</b></div>
+            </div>
+            <button onClick="{{ confirmBuy }}" style-active="transform:scale(.97);" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:20px;transition:transform .1s;">Подтвердить покупку</button>
+            <button onClick="{{ backToAmount }}" style="width:100%;height:52px;border:none;border-radius:16px;background:none;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;color:var(--muted);cursor:pointer;margin-top:6px;">Изменить сумму</button>
+          </div>
+          </sc-if>
+          <sc-if value="{{ buy3 }}" hint-placeholder-val="{{ false }}">
+          <div style="position:relative;min-height:640px;">
+            {{ confettiNodes }}
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:56px;animation:pkpop .5s ease;">
+              <svg width="110" height="110" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" style="fill:var(--accent);"></circle><path d="M14 26L26 14M17.5 14H26v8.5" style="fill:none;stroke:var(--accent-ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.3;"></path><path d="M13 17.5q2.5-2.5 5 0M22 17.5q2.5-2.5 5 0" style="fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linecap:round;"></path><path d="M14 22.5q6 5.5 12 0" style="fill:none;stroke:var(--accent-ink);stroke-width:2.2;stroke-linecap:round;"></path></svg>
+              <div style="font-size:28px;font-weight:900;margin-top:20px;">Ура — первая покупка!</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:8px;line-height:1.5;">Сбербанк на {{ amountLabel }} ₽ теперь в вашем портфеле</div>
+              <div style="display:flex;gap:10px;margin-top:22px;">
+                <div style="background:var(--gainbg);color:var(--gain);font-size:15px;font-weight:900;border-radius:999px;padding:10px 18px;">+100 XP</div>
+                <div style="background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:900;border-radius:999px;padding:10px 18px;">Бейдж «Первая покупка»</div>
+              </div>
+              <div style="font-size:13.5px;color:var(--muted);margin-top:20px;line-height:1.5;max-width:280px;">Совет от Вика: не продавайте при первых колебаниях — время работает на вас.</div>
+              <button onClick="{{ finishBuy }}" style-active="transform:scale(.97);" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:32px;transition:transform .1s;">Смотреть портфель</button>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:20px;right:20px;bottom:112px;background:var(--ink);color:var(--bg);border-radius:16px;padding:14px 18px;font-size:14px;font-weight:600;text-align:center;z-index:48;animation:pkup .25s ease;line-height:1.4;">{{ toast }}</div>
+        </sc-if>
+
+        <!-- таб-бар -->
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 6px 24px;">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+            <button onClick="{{ t.onTap }}" style="flex:1;border:none;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;font-family:'Golos Text',sans-serif;">
+              <div style="width:52px;height:30px;border-radius:999px;background:{{ t.pill }};display:flex;align-items:center;justify-content:center;transition:background .2s;">
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="{{ t.d }}" style="fill:none;stroke:{{ t.color }};stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+              </div>
+              <span style="font-size:10.5px;font-weight:700;color:{{ t.color }};">{{ t.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </x-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;dark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Тема&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#FFB020&quot;,&quot;options&quot;:[&quot;#FFB020&quot;,&quot;#FF7A59&quot;,&quot;#4CAF6D&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Тема&quot;}}">
+class Component extends DCLogic {
+  state = { dark: false, empty: false, tab: 'port', cat: 'list', expOpen: false, buy: 0, amount: 5000,
+    lessonDone: false, lessonStep: 0, lessonPick: '', checkedIn: false, notifOpen: false, notifSeen: false,
+    period: 'm', filter: 'Все', ideaOpen: -1, toast: '', confetti: [] };
+
+  fmt(n) { return n.toLocaleString('ru-RU'); }
+  isDark() { return this.state.darkOverride !== undefined ? this.state.darkOverride : (this.props.dark ?? this.state.dark); }
+
+  syncTheme() {
+    document.body.classList.toggle('pk-dark', this.isDark());
+    const acc = this.props.accent;
+    const deepMap = { '#FFB020': '#A05C00', '#FF7A59': '#B03A1D', '#4CAF6D': '#22693C' };
+    if (acc) {
+      document.body.style.setProperty('--accent', acc);
+      if (!this.isDark() && deepMap[acc]) document.body.style.setProperty('--deep', deepMap[acc]);
+      else document.body.style.removeProperty('--deep');
+    } else { document.body.style.removeProperty('--accent'); document.body.style.removeProperty('--deep'); }
+  }
+  componentDidMount() {
+    this.syncTheme();
+    this._ci = setTimeout(() => {
+      if (!this.state.checkedIn) { this.setState({ checkedIn: true }); this.showToast('+5 XP — ежедневный визит. Серия: 5 дней!'); }
+    }, 1500);
+  }
+  componentDidUpdate() { this.syncTheme(); }
+  componentWillUnmount() { clearTimeout(this._tt); clearTimeout(this._ci); document.body.classList.remove('pk-dark'); }
+
+  showToast(msg) { clearTimeout(this._tt); this.setState({ toast: msg }); this._tt = setTimeout(() => this.setState({ toast: '' }), 2800); }
+
+  spark(data, w, h) {
+    const min = Math.min(...data), max = Math.max(...data), span = max - min || 1;
+    const pts = data.map((v, i) => [(i / (data.length - 1)) * w, h - 8 - ((v - min) / span) * (h - 18)]);
+    const line = 'M' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L ');
+    return { line, area: line + ' L ' + w + ' ' + h + ' L 0 ' + h + ' Z' };
+  }
+
+  openLesson() { this.setState({ lessonStep: 1, lessonPick: '' }); }
+  doFinishLesson() {
+    if (this.state.lessonPick !== 'right') return;
+    this.setState({ lessonDone: true, lessonStep: 0 });
+    this.showToast('+20 XP! Урок пройден — так держать');
+  }
+
+  renderVals() {
+    const s = this.state;
+    const btnFam = "font-family:'Golos Text',sans-serif;";
+    const seg = (act) => 'height:30px;padding:0 12px;border-radius:999px;border:none;cursor:pointer;' + btnFam + 'font-size:12px;font-weight:700;' +
+      (act ? 'background:#FFFFFF;color:#26200F;box-shadow:0 2px 6px rgba(70,50,0,.15);' : 'background:none;color:#6E644E;');
+    const chip = (act) => 'height:36px;padding:0 14px;border-radius:999px;cursor:pointer;white-space:nowrap;border:1.5px solid;' + btnFam + 'font-size:13px;font-weight:700;' +
+      (act ? 'border-color:var(--ink);background:var(--ink);color:var(--bg);' : 'border-color:var(--line);background:var(--card);color:var(--muted);');
+
+    const tabs = [
+      { key: 'port', label: 'Портфель', d: 'M4 8h16v11H4zM8 8V6.5A2.5 2.5 0 0 1 10.5 4h3A2.5 2.5 0 0 1 16 6.5V8M4 12h5m6 0h5' },
+      { key: 'cat', label: 'Каталог', d: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z' },
+      { key: 'ideas', label: 'Идеи', d: 'M12 3a6 6 0 0 1 6 6c0 2.6-1.6 3.8-2.5 5.5h-7C7.6 12.8 6 11.6 6 9a6 6 0 0 1 6-6zM9.5 18h5M10.5 21h3' },
+      { key: 'learn', label: 'Обучение', d: 'M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2zM5 4v14M9 8h6' },
+      { key: 'prof', label: 'Профиль', d: 'M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM4 21c1.5-4 4.5-6 8-6s6.5 2 8 6' },
+    ].map(t => ({ ...t,
+      color: s.tab === t.key ? 'var(--deep)' : 'var(--muted)',
+      pill: s.tab === t.key ? 'var(--soft)' : 'transparent',
+      onTap: () => this.setState({ tab: t.key, buy: 0, cat: 'list', notifOpen: false, lessonStep: 0 }) }));
+
+    const holdings = [
+      { l: 'С', c: '#3E8E5A', name: 'Сбербанк', amt: '15 200 ₽', chg: '+2,1 %', up: true, share: '29%' },
+      { l: 'Г', c: '#4A7DA8', name: 'Газпром', amt: '9 800 ₽', chg: '−1,3 %', up: false, share: '19%', note: 'Рынок иногда дышит. Для долгих целей это нормально.' },
+      { l: 'В', c: '#8A6FBF', name: 'Фонд «Вечный портфель»', amt: '18 400 ₽', chg: '+0,8 %', up: true, share: '35%' },
+      { l: 'З', c: '#C9A227', name: 'Золото', amt: '8 940 ₽', chg: '+0,4 %', up: true, share: '17%' },
+    ].map(h => ({ ...h, chipC: h.up ? 'var(--gain)' : 'var(--muted)' }));
+
+    const riskStyle = (r) => r === 'спокойно' ? { riskBg: 'var(--gainbg)', riskC: 'var(--gain)' }
+      : r === 'средне' ? { riskBg: 'var(--soft)', riskC: 'var(--deep)' }
+      : { riskBg: 'var(--losbg)', riskC: 'var(--muted)' };
+    const allCatalog = [
+      { l: 'О', c: '#5E8C6A', name: 'Облигации ОФЗ', sub: 'Даёте в долг государству под процент', risk: 'спокойно', ex: '10 000 ₽ → ≈ 11 400 ₽ за год' },
+      { l: 'В', c: '#8A6FBF', name: 'Фонд «Вечный портфель»', sub: 'Всё сразу: акции, облигации, золото', risk: 'спокойно', ex: '10 000 ₽ → ≈ 10 800 ₽ за год' },
+      { l: 'З', c: '#C9A227', name: 'Золото', sub: 'Классика «на чёрный день»', risk: 'спокойно', ex: '10 000 ₽ → ≈ 10 600 ₽ за год' },
+      { l: 'С', c: '#3E8E5A', name: 'Сбербанк', sub: 'Самый большой банк страны', risk: 'средне', ex: '10 000 ₽ → ≈ 11 200 ₽ за год', tap: true },
+      { l: 'Г', c: '#4A7DA8', name: 'Газпром', sub: 'Добывает и продаёт газ', risk: 'средне', ex: '10 000 ₽ → ≈ 10 900 ₽ за год' },
+      { l: 'Я', c: '#C4554D', name: 'Яндекс', sub: 'Поиск, такси и доставка', risk: 'рискованно', ex: '10 000 ₽ → от 9 000 до 13 000 ₽' },
+    ];
+    const filterMap = { 'Все': null, 'Спокойные': 'спокойно', 'Средние': 'средне', 'Рискованные': 'рискованно' };
+    const filters = Object.keys(filterMap).map(f => ({ label: f, style: chip(s.filter === f), onTap: () => this.setState({ filter: f }) }));
+    const catalog = allCatalog.filter(k => !filterMap[s.filter] || k.risk === filterMap[s.filter])
+      .map(k => ({ ...k, ...riskStyle(k.risk),
+        onTap: k.tap ? () => this.setState({ cat: 'sber', expOpen: false }) : () => this.showToast('В демо открывается только Сбербанк') }));
+
+    const badges = [
+      { t: 'Первая покупка', sub: 'Получен', done: true },
+      { t: 'Первый доход', sub: 'Получен', done: true },
+      { t: '5 бумаг в корзине', sub: 'Осталась одна', frac: '4/5', pct: '80%' },
+      { t: '30 дней с нами', sub: 'Уже 18 дней', frac: '18/30', pct: '60%' },
+    ].map(b => ({ ...b, inWork: !b.done, bg: b.done ? 'var(--accent)' : 'var(--soft)' }));
+
+    const questSteps = [
+      { t: 'Пополните счёт', done: true }, { t: 'Выберите, во что вложить', cur: true }, { t: 'Купите первую бумагу' },
+    ].map((q, i) => ({ ...q, mark: q.done ? '✓' : String(i + 1),
+      bg: q.done ? 'var(--accent)' : q.cur ? 'var(--card)' : 'var(--soft)',
+      fg: q.done ? 'var(--accent-ink)' : q.cur ? 'var(--deep)' : 'var(--muted)',
+      tc: q.done || q.cur ? 'var(--ink)' : 'var(--muted)' }));
+
+    const dq = [
+      { t: 'Зайти и проверить портфель', xp: 5, done: s.checkedIn, onTap: () => {} },
+      { t: 'Пройти урок дня', xp: 20, done: s.lessonDone, onTap: () => { if (!s.lessonDone) this.openLesson(); } },
+      { t: 'Пополнить на любую сумму', xp: 25, done: false, onTap: () => this.showToast('Пополнение в 2 тапа — фаза 2') },
+    ];
+    const dayQuests = dq.map(q => ({ ...q, bg: q.done ? 'var(--accent)' : 'var(--soft)', tc: q.done ? 'var(--muted)' : 'var(--ink)' }));
+    const doneCount = dq.filter(q => q.done).length;
+    const ringC = 2 * Math.PI * 19;
+    const questDash = (ringC * doneCount / 3).toFixed(1) + ' ' + ringC.toFixed(1);
+    const questSummary = doneCount + ' из 3 выполнено · +' + dq.filter(q => !q.done).reduce((a, q) => a + q.xp, 0) + ' XP ещё ждут';
+
+    const chartData = {
+      w: [51.9, 52.05, 51.95, 52.1, 52.2, 52.02, 52.34],
+      m: [50.9, 51.2, 51.0, 51.4, 51.3, 51.7, 51.55, 52.0, 51.8, 52.1, 52.34],
+      a: [50.0, 50.4, 50.2, 50.9, 50.6, 51.1, 51.0, 51.5, 51.3, 51.9, 52.0, 52.34],
+    };
+    const changeMap = { w: '+440 ₽ (+0,8 %)', m: '+1 240 ₽ (+2,4 %)', a: '+2 340 ₽ (+4,7 %)' };
+    const sp = this.spark(chartData[s.period], 350, 72);
+    const sb = this.spark([9, 10, 8.5, 11, 10.2, 13, 12.4, 15, 14.2, 17, 16.5, 19.6], 320, 80);
+    const periods = [{ k: 'w', label: 'Неделя' }, { k: 'm', label: 'Месяц' }, { k: 'a', label: 'Всё время' }]
+      .map(p => ({ ...p, style: chip(s.period === p.k), onTap: () => this.setState({ period: p.k }) }));
+
+    const ideas = [
+      { t: 'Корзина на автопилоте', sub: 'Фонд «Вечный портфель»', risk: 'спокойно', why: 'Фонд сам раскладывает деньги по акциям, облигациям и золоту — «не все яйца в одну корзину» без вашего участия. Хорош, когда не хочется выбирать.' },
+      { t: 'Дивидендная классика', sub: 'Сбербанк', risk: 'средне', why: 'Банк каждый год делится прибылью: примерно 10 % от цены акции приходят деньгами на счёт. Подходит для цели от 2–3 лет.' },
+      { t: 'Золото на чёрный день', sub: 'Обезличенное золото', risk: 'спокойно', why: 'Когда рынки штормит, золото обычно держится лучше акций. Небольшая доля (10–15 %) делает портфель спокойнее.' },
+    ].map((i, idx) => ({ ...i, ...riskStyle(i.risk), open: s.ideaOpen === idx,
+      arrow: s.ideaOpen === idx ? 'rotate(180deg)' : 'rotate(0deg)',
+      onTap: () => this.setState({ ideaOpen: s.ideaOpen === idx ? -1 : idx }) }));
+
+    const lessons = [
+      { t: 'Что такое инвестиции', sub: 'Пройден · +20 XP', done: true },
+      { t: 'Акции и облигации — в чём разница', sub: 'Пройден · +20 XP', done: true },
+      { t: 'Почему цены прыгают', sub: s.lessonDone ? 'Пройден · +20 XP' : '3 мин · вопрос в конце', done: s.lessonDone, current: !s.lessonDone, chip: s.lessonDone ? '' : 'УРОК ДНЯ', tap: true },
+      { t: 'Не клади все яйца в одну корзину', sub: s.lessonDone ? 'Доступен завтра' : 'Откроется после урока дня', locked: true },
+      { t: 'Фонды: корзина на автопилоте', sub: 'Откроется позже', locked: true },
+    ].map(l => ({ ...l,
+      bg: l.done ? 'var(--accent)' : l.current ? 'var(--accent)' : 'var(--soft)',
+      border: l.current ? '3px solid var(--gainbg)' : '3px solid transparent',
+      tc: l.locked ? 'var(--muted)' : 'var(--ink)',
+      onTap: l.tap && !l.done ? () => this.openLesson() : l.locked ? () => this.showToast('Сначала — урок дня. Всё по шагам!') : () => {} }));
+
+    const lvIdx = 1;
+    const levels = ['Новичок', 'Ученик', 'Уверенный', 'Стратег', 'Мастер'].map((t, i) => ({
+      t, line: i > 0, done: i < lvIdx,
+      lineC: i <= lvIdx - 1 ? 'var(--accent)' : 'var(--line)',
+      bg: i < lvIdx ? 'var(--accent)' : 'var(--card)',
+      bc: i < lvIdx ? 'var(--accent)' : i === lvIdx ? 'var(--accent)' : 'var(--line)',
+      tc: i <= lvIdx ? 'var(--ink)' : 'var(--muted)' }));
+
+    const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d, i) => ({
+      d, done: i < 5, bg: i < 5 ? 'var(--accent)' : 'var(--soft)' }));
+
+    const notifs = [
+      { t: '+5 XP за визит сегодня. Серия: 5 дней!', time: 'только что', d: 'M12 2c1.4 4-5 6-5 12a5 5 0 0 0 10 0c0-2.4-1.2-3.8-1.9-5-.9 1.3-1.9 1.7-1.9 1.7C14.4 8 14 4.6 12 2z' },
+      { t: 'Урок дня ждёт: «Почему цены прыгают» — 3 минуты, +20 XP', time: 'утром', d: 'M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2zM5 4v14M9 8h6' },
+      { t: 'До «Отпуска» осталось 47 660 ₽ — вы на полпути', time: 'вчера', d: 'M8 8V6.5A2.5 2.5 0 0 1 10.5 4h3A2.5 2.5 0 0 1 16 6.5V8M4 8h16v11H4z' },
+    ];
+
+    const presets = [1000, 5000, 10000].map(v => ({
+      label: this.fmt(v) + ' ₽',
+      onTap: () => this.setState({ amount: v }),
+      style: 'height:44px;padding:0 16px;border-radius:999px;cursor:pointer;white-space:nowrap;border:1.5px solid;' + btnFam + 'font-size:14.5px;font-weight:800;' +
+        (s.amount === v ? 'border-color:var(--accent);background:var(--accent);color:var(--accent-ink);' : 'border-color:var(--line);background:var(--card);color:var(--ink);') }));
+
+    const confettiColors = ['#FFB020', '#2E7D4F', '#FF7A59', '#8A6FBF', '#C9A227'];
+    const confettiNodes = React.createElement('div', { style: { position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' } },
+      s.confetti.map((c, i) => React.createElement('div', { key: i, style: {
+        position: 'absolute', top: -24, left: c.left + '%', width: c.w, height: c.h,
+        background: confettiColors[i % 5], borderRadius: 2, transform: 'rotate(' + c.rot + 'deg)',
+        animation: 'pkfall ' + c.dur + 's ' + c.delay + 's cubic-bezier(.25,.6,.35,1) forwards' } })));
+
+    const quizBase = 'width:100%;min-height:56px;border-radius:16px;cursor:pointer;' + btnFam + 'font-size:15.5px;font-weight:700;text-align:left;padding:14px 18px;box-sizing:border-box;margin-top:14px;border:1.5px solid;';
+    const xp = 240 + (s.checkedIn ? 5 : 0) + (s.lessonDone ? 20 : 0);
+    const dotOn = 'var(--accent)', dotOff = 'var(--soft)';
+    return {
+      isDark: this.isDark(),
+      themeLabel: this.isDark() ? 'Светлая тема' : 'Тёмная тема',
+      toggleDark: () => this.setState({ darkOverride: !this.isDark() }),
+      switchBg: this.isDark() ? 'var(--accent)' : 'var(--line)',
+      switchKnob: this.isDark() ? '23px' : '3px',
+      segFullStyle: seg(!s.empty), segEmptyStyle: seg(s.empty),
+      demoFull: () => this.setState({ empty: false }), demoEmpty: () => this.setState({ empty: true }),
+      showHome: s.tab === 'port', hasMoney: s.tab === 'port' && !s.empty, isEmpty: s.tab === 'port' && s.empty,
+      showCat: s.tab === 'cat' && s.cat === 'list', showSber: s.tab === 'cat' && s.cat === 'sber',
+      showIdeas: s.tab === 'ideas', showLearn: s.tab === 'learn', showProf: s.tab === 'prof',
+      showIdeaBanner: s.filter === 'Все' || s.filter === 'Спокойные',
+      goCatalog: () => this.setState({ tab: 'cat', cat: 'list', filter: 'Все' }),
+      goIdeas: () => this.setState({ tab: 'ideas' }),
+      backToCat: () => this.setState({ cat: 'list' }),
+      openNotif: () => this.setState({ notifOpen: true, notifSeen: true }),
+      closeNotif: () => this.setState({ notifOpen: false }),
+      notifOpen: s.notifOpen, notifs, bellBadge: !s.notifSeen,
+      startBuy: () => this.setState({ buy: 1 }),
+      closeBuy: () => this.setState({ buy: 0 }),
+      backToAmount: () => this.setState({ buy: 1 }),
+      toConfirm: () => this.setState({ buy: 2 }),
+      confirmBuy: () => this.setState({ buy: 3, confetti: Array.from({ length: 44 }, () => ({
+        left: Math.random() * 100, delay: Math.random() * 0.9, dur: 2.2 + Math.random() * 2,
+        rot: Math.random() * 360, w: 6 + Math.random() * 6, h: 8 + Math.random() * 8 })) }),
+      finishBuy: () => this.setState({ buy: 0, tab: 'port', cat: 'list', empty: false }),
+      toggleExp: () => this.setState({ expOpen: !s.expOpen }),
+      expOpen: s.expOpen, expArrow: s.expOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+      onTopUp: () => this.showToast('Пополнение в 2 тапа — фаза 2'),
+      onGoalTip: () => this.showToast('Пополняйте на 8 000 ₽ в месяц — и успеете к июню'),
+      lessonOpen: s.lessonStep > 0, les1: s.lessonStep === 1, les2: s.lessonStep === 2, les3: s.lessonStep === 3,
+      dot1: s.lessonStep >= 1 ? dotOn : dotOff, dot2: s.lessonStep >= 2 ? dotOn : dotOff, dot3: s.lessonStep >= 3 ? dotOn : dotOff,
+      lesNext: () => this.setState({ lessonStep: s.lessonStep + 1 }),
+      closeLesson: () => this.setState({ lessonStep: 0 }),
+      pickWrong: () => this.setState({ lessonPick: 'wrong' }),
+      pickRight: () => this.setState({ lessonPick: 'right' }),
+      pickedWrong: s.lessonPick === 'wrong', pickedRight: s.lessonPick === 'right',
+      wrongStyle: quizBase + (s.lessonPick === 'wrong' ? 'border-color:var(--muted);background:var(--losbg);color:var(--muted);' : 'border-color:var(--line);background:var(--card);color:var(--ink);'),
+      rightStyle: quizBase + (s.lessonPick === 'right' ? 'border-color:var(--gain);background:var(--gainbg);color:var(--gain);' : 'border-color:var(--line);background:var(--card);color:var(--ink);'),
+      finishStyle: 'width:100%;height:56px;border:none;border-radius:16px;' + btnFam + 'font-size:17px;font-weight:800;margin-top:24px;transition:opacity .2s;' +
+        (s.lessonPick === 'right' ? 'background:var(--accent);color:var(--accent-ink);cursor:pointer;opacity:1;' : 'background:var(--soft);color:var(--muted);cursor:default;opacity:.7;'),
+      finishLesson: () => this.doFinishLesson(),
+      buyOpen: s.buy > 0, buy1: s.buy === 1, buy2: s.buy === 2, buy3: s.buy === 3,
+      amountLabel: this.fmt(s.amount),
+      estLabel: this.fmt(Math.round(s.amount * 1.12 / 100) * 100) + ' ₽',
+      decAmount: () => this.setState({ amount: Math.max(1000, s.amount - 1000) }),
+      incAmount: () => this.setState({ amount: Math.min(100000, s.amount + 1000) }),
+      presets, periods, periodChange: changeMap[s.period],
+      sparkPath: sp.line, sparkArea: sp.area, sberPath: sb.line, sberArea: sb.area,
+      questDash, questSummary, dayQuests,
+      xpLabel: xp + ' / 500', xpPct: Math.round(xp / 500 * 100) + '%', xpLeft: 500 - xp,
+      toast: s.toast, confettiNodes,
+      tabs, holdings, catalog, filters, badges, questSteps, ideas, lessons, levels, weekDays, notifs,
+    };
+  }
+}
+</script>
+</body>
+</html>

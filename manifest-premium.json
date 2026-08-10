@@ -1,0 +1,14 @@
+{
+  "name": "Вектор Капитал Premium",
+  "short_name": "Вектор+",
+  "description": "Премиум-инвестиции",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "start_url": "./premium.html",
+  "icons": [
+    { "src": "assets/icon-premium-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icon-premium-180.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
