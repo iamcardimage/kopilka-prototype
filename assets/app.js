@@ -18,7 +18,7 @@
   /* ---------- Живое состояние приложения ---------- */
   var S = {
     balance: 52340, invested: 50000, xp: 240, xpNext: 400,
-    goal: 100000, bonds: 31400, stocks: 15700, cash: 5240,
+    goal: 100000, bonds: 31400, stocks: 15700, cash: 5240, cashFree: 1000,
     tasks: { visit: true, lesson: false, topup: false },
     awarded: { lesson: false, buy: false, topup: false }
   };
@@ -33,6 +33,7 @@
     setBind("profit", "+" + fmt(S.balance - S.invested));
     setBind("xp", S.xp + " / " + S.xpNext + " XP");
     setBind("xp-chip", S.xp + " XP");
+    setBind("cash-free", fmt(S.cashFree));
     $all('[data-bind="xp-bar"]').forEach(function (el) { el.style.width = Math.min(100, S.xp / S.xpNext * 100) + "%"; });
 
     var pct = Math.min(100, Math.round(S.balance / S.goal * 100));
@@ -214,7 +215,7 @@
   $all("[data-topup-confirm]").forEach(function (b) {
     b.addEventListener("click", function () {
       if (numValue <= 0) return;
-      S.balance += numValue; S.invested += numValue; S.cash += numValue;
+      S.balance += numValue; S.invested += numValue; S.cash += numValue; S.cashFree += numValue;
       S.tasks.topup = true;
       setBind("topup-out", "+" + fmt(numValue));
       var gotXp = !S.awarded.topup;
@@ -231,9 +232,14 @@
   });
 
   /* ---------- Подтверждение покупки ---------- */
+  var hasCashFree = !!$('[data-bind="cash-free"]');
   $all("[data-buy-confirm]").forEach(function (b) {
     b.addEventListener("click", function () {
-      S.balance += lastBuyAmount; S.invested += lastBuyAmount; S.stocks += lastBuyAmount;
+      var spend = hasCashFree ? Math.min(S.cashFree, lastBuyAmount) : 0;
+      S.cashFree -= spend;
+      S.balance += lastBuyAmount - spend;
+      S.invested += lastBuyAmount - spend;
+      S.stocks += lastBuyAmount;
       if (!S.awarded.buy) { S.awarded.buy = true; S.xp += 100; }
       render();
     });
