@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE6D6;font-family:'Golos Text',system-ui,sans-serif;color:#2B2418;
+--bg:#F7F1E6;--card:#FFFFFF;--ink:#2B2418;--muted:#8C8170;--line:#EAE0CE;--soft:#F1E8D8;
+--accent:#FFB020;--accent-ink:#3A2600;--deep:#A05C00;--gain:#2E7D4F;--gainbg:#E4F0E6;--losbg:#EFEAE0;}
+body.pk-dark{--bg:#211C12;--card:#2D2719;--ink:#F4EDDF;--muted:#A79B84;--line:#3C3524;--soft:#362F1F;
+--deep:#FFC963;--gain:#8CC9A2;--gainbg:#2A382E;--losbg:#37312A;}
+a{color:#A05C00}a:hover{color:#7A4600}
+@keyframes pkfall{to{transform:translateY(900px) rotate(720deg);opacity:.85}}
+@keyframes pkpop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes pkup{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;gap:52px;justify-content:center;align-items:flex-start;padding:48px 32px 80px;">
+  <div style="width:392px;display:flex;flex-direction:column;gap:16px;">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.12em;color:#A05C00;">КОПИЛКА · КОНЦЕПЦИЯ</div>
+    <div style="background:#FFFFFF;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(80,55,0,.07);display:flex;flexDirection:column;gap:10px;font-size:14.5px;line-height:1.55;">
+      <div><b>1.</b> Инвестиции по-человечески: один экран — одно действие, суммы в рублях, без жаргона и тикеров.</div>
+      <div><b>2.</b> Цифры — герои: главный экран отвечает на вопрос «сколько у меня денег и растут ли они».</div>
+      <div><b>3.</b> Цель «Отпуск» — главный крючок: крупный прогресс-бар и подсказки, как дойти быстрее.</div>
+      <div><b>4.</b> Честная геймификация: XP за уроки, пополнения и выдержку — не за частые сделки.</div>
+      <div><b>5.</b> Спокойствие: прибыль — тёплая зелень; просадка — нейтральный тон с поддерживающей подписью.</div>
+      <div><b>6.</b> Маскот Копи — монетка из простой геометрии — ведёт новичка через квест «Первый портфель за 3 шага».</div>
+    </div>
+    <div style="font-size:13px;font-weight:700;letter-spacing:.12em;color:#A05C00;margin-top:8px;">ДИЗАЙН-ТОКЕНЫ</div>
+    <div style="background:#FFFFFF;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(80,55,0,.07);display:flex;flex-direction:column;gap:14px;font-size:13.5px;">
+      <div>
+        <div style="font-weight:700;margin-bottom:8px;">Палитра · светлая</div>
+        <div style="display:flex;gap:8px;">
+          <div style="width:44px;height:44px;border-radius:12px;background:#F7F1E6;border:1px solid #EAE0CE;" title="фон #F7F1E6"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#FFFFFF;border:1px solid #EAE0CE;" title="карточка #FFFFFF"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#2B2418;" title="текст #2B2418"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#FFB020;" title="акцент #FFB020"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#2E7D4F;" title="рост #2E7D4F"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#8C8170;" title="просадка #8C8170"></div>
+        </div>
+        <div style="color:#8C8170;margin-top:6px;">фон · карточка · текст · акцент · рост · просадка (не красный)</div>
+      </div>
+      <div>
+        <div style="font-weight:700;margin-bottom:8px;">Палитра · тёмная</div>
+        <div style="display:flex;gap:8px;">
+          <div style="width:44px;height:44px;border-radius:12px;background:#211C12;" title="фон #211C12"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#2D2719;" title="карточка #2D2719"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#F4EDDF;border:1px solid #EAE0CE;" title="текст #F4EDDF"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#FFB020;" title="акцент #FFB020"></div>
+          <div style="width:44px;height:44px;border-radius:12px;background:#8CC9A2;" title="рост #8CC9A2"></div>
+        </div>
+      </div>
+      <div><b>Шрифт:</b> Golos Text (кириллица) — весь интерфейс; суммы 800–900, текст 400–600.</div>
+      <div><b>Радиусы:</b> карточки 24 · кнопки 16 · чипы 999.</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="height:52px;padding:0 24px;border-radius:16px;background:#FFB020;color:#3A2600;font-weight:800;font-size:16px;display:flex;align-items:center;">Купить</div>
+        <div><b>Кнопки:</b> 52–56 px, янтарная заливка, тёмный текст (AA), одно главное действие на экран.</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+    <div style="display:flex;gap:10px;">
+      <button onClick="{{ toggleDark }}" style="height:40px;padding:0 18px;border-radius:999px;border:1px solid #D8CCB4;background:#FFFFFF;font-family:'Golos Text',sans-serif;font-size:13.5px;font-weight:600;color:#2B2418;cursor:pointer;">{{ themeLabel }}</button>
+    </div>
+    <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 390 }}" height="{{ 844 }}" dark="{{ isDark }}" hint-size="390px,844px">
+      <div style="position:relative;height:100%;background:var(--bg);color:var(--ink);font-family:'Golos Text',system-ui,sans-serif;overflow:hidden;">
+
+        <!-- ГЛАВНЫЙ: портфель -->
+        <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="Главный — портфель" style="position:absolute;inset:0;overflow-y:auto;padding:64px 20px 120px;box-sizing:border-box;">
+          <div style="display:flex;justify-content:center;margin-bottom:14px;">
+            <div style="display:flex;gap:4px;background:var(--soft);border-radius:999px;padding:4px;">
+              <button onClick="{{ demoFull }}" style="{{ segFullStyle }}">Есть портфель</button>
+              <button onClick="{{ demoEmpty }}" style="{{ segEmptyStyle }}">Новичок</button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg width="38" height="38" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" style="fill:var(--accent);"></circle><circle cx="20" cy="20" r="13" style="fill:none;stroke:var(--accent-ink);stroke-width:1.6;opacity:.35;"></circle><circle cx="15.5" cy="17.5" r="2.2" style="fill:var(--accent-ink);"></circle><circle cx="24.5" cy="17.5" r="2.2" style="fill:var(--accent-ink);"></circle><path d="M15 23q5 4.4 10 0" style="fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linecap:round;"></path></svg>
+            <div style="flex:1;font-size:19px;font-weight:800;">Здравствуйте, Анна!</div>
+            <div style="display:flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;padding:7px 12px;">
+              <svg width="15" height="17" viewBox="0 0 24 26"><path d="M12 2c1.4 4-5 6-5 12a5 5 0 0 0 10 0c0-2.4-1.2-3.8-1.9-5-.9 1.3-1.9 1.7-1.9 1.7C14.4 8 14 4.6 12 2z" style="fill:var(--deep);"></path></svg>
+              <span style="font-size:13.5px;font-weight:800;color:var(--deep);">5 дней</span>
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:6px;">
+              <span>Уровень 2 · Новичок</span><span>{{ xpLabel }} XP</span>
+            </div>
+            <div style="height:8px;border-radius:999px;background:var(--soft);overflow:hidden;">
+              <div style="height:100%;border-radius:999px;background:var(--accent);width:{{ xpPct }};"></div>
+            </div>
+          </div>
+
+          <sc-if value="{{ hasMoney }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="margin-top:26px;font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--muted);">ВАШИ ДЕНЬГИ</div>
+            <div style="font-size:46px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-top:4px;">52 340 ₽</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap;">
+              <div style="background:var(--gainbg);color:var(--gain);font-size:14px;font-weight:800;border-radius:999px;padding:6px 12px;">+320 ₽ за вчера (+0,6 %)</div>
+              <span style="font-size:13.5px;color:var(--muted);">Ваши деньги работают</span>
+            </div>
+            <div style="font-size:14px;color:var(--muted);margin-top:8px;">Вложили 50 000 ₽ — заработали <b style="color:var(--gain);">2 340 ₽</b></div>
+            <div style="display:flex;gap:12px;margin-top:18px;">
+              <button onClick="{{ onTopUp }}" style="flex:1;height:56px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;">Пополнить</button>
+              <button onClick="{{ goCatalog }}" style="flex:1;height:56px;border:1.5px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;">Купить</button>
+            </div>
+            <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:22px;box-shadow:0 8px 24px rgba(80,55,0,.06);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:40px;height:40px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:var(--deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"><path d="M8 8V6.5A2.5 2.5 0 0 1 10.5 4h3A2.5 2.5 0 0 1 16 6.5V8M4 8h16v11H4z"></path></svg>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-size:16px;font-weight:800;">Цель «Отпуск»</div>
+                  <div style="font-size:13px;color:var(--muted);">100 000 ₽ к июню</div>
+                </div>
+                <div style="font-size:18px;font-weight:900;color:var(--deep);">52 %</div>
+              </div>
+              <div style="height:14px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:14px;">
+                <div style="height:100%;width:52%;border-radius:999px;background:var(--accent);"></div>
+              </div>
+              <div style="font-size:14px;margin-top:10px;line-height:1.45;">До цели осталось 47 660 ₽ — вы на полпути!</div>
+              <button onClick="{{ onGoalTip }}" style="margin-top:8px;border:none;background:none;padding:0;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;color:var(--deep);cursor:pointer;">Как дойти быстрее →</button>
+            </div>
+            <button onClick="{{ onLesson }}" style="width:100%;text-align:left;background:var(--card);border:none;border-radius:24px;padding:16px 20px;margin-top:14px;box-shadow:0 8px 24px rgba(80,55,0,.06);display:flex;align-items:center;gap:12px;cursor:pointer;font-family:'Golos Text',sans-serif;color:var(--ink);">
+              <div style="width:40px;height:40px;border-radius:12px;background:var(--gainbg);display:flex;align-items:center;justify-content:center;flex:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" style="fill:none;stroke:var(--gain);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"><path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2zM5 4v14M9 8h6"></path></svg>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;">УРОК ДНЯ · 3 МИН</div>
+                <div style="font-size:14.5px;font-weight:700;line-height:1.3;margin-top:2px;">Почему цены прыгают — и почему это не страшно</div>
+              </div>
+              <div style="background:var(--accent);color:var(--accent-ink);font-size:12.5px;font-weight:800;border-radius:999px;padding:6px 10px;flex:none;">{{ lessonChip }}</div>
+            </button>
+            <div style="margin-top:24px;font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--muted);">ВО ЧТО ВЛОЖЕНЫ ДЕНЬГИ</div>
+            <sc-for list="{{ holdings }}" as="h" hint-placeholder-count="4">
+              <div style="background:var(--card);border-radius:20px;padding:14px 16px;margin-top:10px;box-shadow:0 6px 18px rgba(80,55,0,.05);">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:44px;height:44px;border-radius:999px;background:{{ h.c }};color:#FFF;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex:none;">{{ h.l }}</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:15px;font-weight:700;">{{ h.name }}</div>
+                    <div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.amt }}</div>
+                  </div>
+                  <div style="background:{{ h.chipBg }};color:{{ h.chipC }};font-size:13px;font-weight:800;border-radius:999px;padding:6px 11px;flex:none;">{{ h.chg }}</div>
+                </div>
+                <sc-if value="{{ h.note }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--line);line-height:1.45;">{{ h.note }}</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:pkup .35s ease;">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:34px;">
+              <svg width="96" height="96" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" style="fill:var(--accent);"></circle><circle cx="20" cy="20" r="13" style="fill:none;stroke:var(--accent-ink);stroke-width:1.4;opacity:.35;"></circle><circle cx="15.5" cy="17.5" r="2.2" style="fill:var(--accent-ink);"></circle><circle cx="24.5" cy="17.5" r="2.2" style="fill:var(--accent-ink);"></circle><path d="M15 23q5 4.4 10 0" style="fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linecap:round;"></path></svg>
+              <div style="background:var(--card);border-radius:18px;padding:14px 18px;margin-top:16px;box-shadow:0 8px 24px rgba(80,55,0,.06);font-size:15.5px;font-weight:600;line-height:1.45;max-width:300px;">Привет, я Копи! Готовы начать? Это 2 минуты — и никаких сложных слов.</div>
+            </div>
+            <div style="background:var(--card);border-radius:24px;padding:22px;margin-top:22px;box-shadow:0 8px 24px rgba(80,55,0,.06);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--deep);">КВЕСТ · ШАГ 1 ИЗ 3</div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--muted);">награда: бейдж + 100 XP</div>
+              </div>
+              <div style="font-size:20px;font-weight:900;line-height:1.25;margin-top:8px;">Собери первый портфель за 3 шага</div>
+              <div style="height:10px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:14px;">
+                <div style="height:100%;width:33%;border-radius:999px;background:var(--accent);"></div>
+              </div>
+              <sc-for list="{{ questSteps }}" as="q" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;margin-top:14px;">
+                  <div style="width:30px;height:30px;border-radius:999px;background:{{ q.bg }};color:{{ q.fg }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex:none;">{{ q.mark }}</div>
+                  <div style="font-size:15px;font-weight:600;color:{{ q.tc }};">{{ q.t }}</div>
+                </div>
+              </sc-for>
+              <button onClick="{{ goCatalog }}" style="width:100%;height:56px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:17px;font-weight:800;cursor:pointer;margin-top:18px;">Продолжить квест</button>
+            </div>
+            <div style="text-align:center;font-size:13.5px;color:var(--muted);margin-top:16px;line-height:1.5;">Деньги на счёте: 1 000 ₽ — уже пополнили, отличный старт!</div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- КАТАЛОГ -->
+        <sc-if value="{{ showCat }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Каталог" style="position:absolute;inset:0;overflow-y:auto;padding:70px 20px 120px;box-sizing:border-box;">
+          <div style="font-size:30px;font-weight:900;">Каталог</div>
+          <div style="font-size:14.5px;color:var(--muted);margin-top:4px;">Во что вложить — простыми словами</div>
+          <div style="background:var(--soft);border-radius:24px;padding:20px;margin-top:18px;border:1.5px solid var(--line);">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:var(--accent);color:var(--accent-ink);font-size:11.5px;font-weight:800;letter-spacing:.06em;border-radius:999px;padding:5px 10px;">ИДЕЯ ДНЯ</div>
+              <div style="background:var(--gainbg);color:var(--gain);font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 10px;">спокойно</div>
+            </div>
+            <div style="font-size:18px;font-weight:800;margin-top:10px;">Облигации для спокойного старта</div>
+            <div style="font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5;">Вложили 12 000 ₽ — через год примерно <b style="color:var(--gain);">14 600 ₽</b></div>
+          </div>
+          <sc-for list="{{ catalog }}" as="k" hint-placeholder-count="4">
+            <button onClick="{{ k.onTap }}" style="width:100%;text-align:left;background:var(--card);border:none;border-radius:20px;padding:16px;margin-top:12px;box-shadow:0 6px 18px rgba(80,55,0,.05);display:flex;align-items:center;gap:12px;cursor:pointer;font-family:'Golos Text',sans-serif;color:var(--ink);">
+              <div style="width:48px;height:48px;border-radius:999px;background:{{ k.c }};color:#FFF;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;flex:none;">{{ k.l }}</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:16px;font-weight:800;">{{ k.name }}</div>
+                <div style="font-size:13px;color:var(--muted);margin-top:2px;">{{ k.sub }}</div>
+                <div style="font-size:13px;margin-top:6px;">{{ k.ex }}</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none;">
+                <div style="background:{{ k.riskBg }};color:{{ k.riskC }};font-size:12px;font-weight:800;border-radius:999px;padding:5px 10px;">{{ k.risk }}</div>
+                <svg width="8" height="14" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" style="fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+              </div>
+            </button>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- КАРТОЧКА СБЕРБАНКА -->
+        <sc-if value="{{ showSber }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Карточка — Сбербанк" style="position:absolute;inset:0;overflow-y:auto;padding:64px 20px 120px;box-sizing:border-box;">
+          <button onClick="{{ backToCat }}" style="display:flex;align-items:center;gap:6px;border:none;background:var(--soft);border-radius:999px;padding:10px 16px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;">
+            <svg width="8" height="14" viewBox="0 0 8 14"><path d="M7 1L1 7l6 6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+            Каталог
+          </button>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:20px;">
+            <div style="width:64px;height:64px;border-radius:999px;background:#3E8E5A;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;">С</div>
+            <div>
+              <div style="font-size:26px;font-weight:900;">Сбербанк</div>
+              <div style="font-size:14px;color:var(--muted);">Акции · банк</div>
+            </div>
+          </div>
+          <div style="font-size:15px;line-height:1.55;margin-top:16px;">Самый большой банк страны: картами и приложением Сбера пользуется каждый второй. Покупая акцию, вы становитесь совладельцем банка — и зарабатываете, когда он растёт.</div>
+          <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:18px;box-shadow:0 8px 24px rgba(80,55,0,.06);">
+            <div style="font-size:13px;font-weight:700;color:var(--muted);">ЕСЛИ ВЛОЖИТЬ 10 000 ₽</div>
+            <div style="font-size:26px;font-weight:900;margin-top:6px;">через год ≈ <span style="color:var(--gain);">11 200 ₽</span></div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5;">Это ориентир по прошлым годам, а не гарантия. Цена может колебаться.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:16px;padding:14px 16px;margin-top:12px;">
+            <div style="background:var(--accent);color:var(--accent-ink);font-size:12.5px;font-weight:800;border-radius:999px;padding:5px 10px;flex:none;">средне</div>
+            <div style="font-size:13.5px;line-height:1.45;color:var(--ink);">Риск: цена «дышит», но на горизонте от года колебания обычно сглаживаются.</div>
+          </div>
+          <button onClick="{{ startBuy }}" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:18px;">Купить</button>
+          <button onClick="{{ toggleExp }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;border:none;background:none;padding:18px 4px 6px;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;color:var(--muted);cursor:pointer;">
+            Для опытных
+            <svg width="14" height="8" viewBox="0 0 14 8" style="transform:{{ expArrow }};transition:transform .2s;"><path d="M1 1l6 6 6-6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+          </button>
+          <sc-if value="{{ expOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="background:var(--card);border-radius:20px;padding:18px;margin-top:8px;box-shadow:0 6px 18px rgba(80,55,0,.05);animation:pkup .25s ease;">
+              <div style="height:120px;border-radius:12px;background:repeating-linear-gradient(45deg,var(--soft),var(--soft) 8px,var(--card) 8px,var(--card) 16px);display:flex;align-items:center;justify-content:center;">
+                <span style="font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);">график цены за 5 лет</span>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:14px;font-size:13px;">
+                <div style="flex:1;background:var(--soft);border-radius:12px;padding:10px;"><div style="color:var(--muted);">Цена акции</div><div style="font-weight:800;margin-top:2px;">312 ₽</div></div>
+                <div style="flex:1;background:var(--soft);border-radius:12px;padding:10px;"><div style="color:var(--muted);">Дивиденды</div><div style="font-weight:800;margin-top:2px;">≈ 10 % в год</div></div>
+                <div style="flex:1;background:var(--soft);border-radius:12px;padding:10px;"><div style="color:var(--muted);">P/E</div><div style="font-weight:800;margin-top:2px;">4,1</div></div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- ИДЕИ / ОБУЧЕНИЕ: заглушки -->
+        <sc-if value="{{ showIdeas }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Идеи (фаза 2)" style="position:absolute;inset:0;overflow-y:auto;padding:70px 24px 120px;box-sizing:border-box;text-align:center;">
+          <div style="font-size:30px;font-weight:900;text-align:left;">Идеи</div>
+          <svg width="80" height="80" viewBox="0 0 40 40" style="margin-top:70px;"><circle cx="20" cy="20" r="19" style="fill:var(--soft);"></circle><circle cx="15.5" cy="17.5" r="2.2" style="fill:var(--muted);"></circle><circle cx="24.5" cy="17.5" r="2.2" style="fill:var(--muted);"></circle><path d="M15 23q5 4.4 10 0" style="fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;"></path></svg>
+          <div style="font-size:18px;font-weight:800;margin-top:16px;">Скоро здесь будут идеи</div>
+          <div style="font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.55;">Готовые подборки: во что вложить, почему и с каким риском. Фаза 2 — опишем по запросу.</div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ showLearn }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Обучение (фаза 2)" style="position:absolute;inset:0;overflow-y:auto;padding:70px 24px 120px;box-sizing:border-box;text-align:center;">
+          <div style="font-size:30px;font-weight:900;text-align:left;">Обучение</div>
+          <svg width="80" height="80" viewBox="0 0 40 40" style="margin-top:70px;"><circle cx="20" cy="20" r="19" style="fill:var(--soft);"></circle><circle cx="15.5" cy="17.5" r="2.2" style="fill:var(--muted);"></circle><circle cx="24.5" cy="17.5" r="2.2" style="fill:var(--muted);"></circle><path d="M15 23q5 4.4 10 0" style="fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;"></path></svg>
+          <div style="font-size:18px;font-weight:800;margin-top:16px;">Уроки по 3 минуты</div>
+          <div style="font-size:14.5px;color:var(--muted);margin-top:8px;line-height:1.55;">Короткие уроки простыми словами, +20 XP за каждый. Фаза 2 — опишем по запросу.</div>
+        </div>
+        </sc-if>
+
+        <!-- ПРОФИЛЬ -->
+        <sc-if value="{{ showProf }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Профиль — игра" style="position:absolute;inset:0;overflow-y:auto;padding:70px 20px 120px;box-sizing:border-box;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:60px;height:60px;border-radius:999px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;">А</div>
+            <div style="flex:1;">
+              <div style="font-size:24px;font-weight:900;">Анна</div>
+              <div style="font-size:14px;color:var(--muted);">Уровень 2 · Новичок</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;background:var(--soft);border-radius:999px;padding:8px 13px;">
+              <svg width="15" height="17" viewBox="0 0 24 26"><path d="M12 2c1.4 4-5 6-5 12a5 5 0 0 0 10 0c0-2.4-1.2-3.8-1.9-5-.9 1.3-1.9 1.7-1.9 1.7C14.4 8 14 4.6 12 2z" style="fill:var(--deep);"></path></svg>
+              <span style="font-size:13.5px;font-weight:800;color:var(--deep);">5 дней</span>
+            </div>
+          </div>
+          <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:20px;box-shadow:0 8px 24px rgba(80,55,0,.06);">
+            <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;">
+              <span>Новичок</span><span style="color:var(--muted);">Ученик</span>
+            </div>
+            <div style="height:12px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:8px;">
+              <div style="height:100%;border-radius:999px;background:var(--accent);width:{{ xpPct }};"></div>
+            </div>
+            <div style="font-size:13.5px;color:var(--muted);margin-top:8px;">{{ xpLabel }} XP — до «Ученика» осталось {{ xpLeft }} XP</div>
+          </div>
+          <div style="background:var(--card);border-radius:24px;padding:18px 20px;margin-top:12px;box-shadow:0 8px 24px rgba(80,55,0,.06);display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none;">
+              <svg width="18" height="21" viewBox="0 0 24 26"><path d="M12 2c1.4 4-5 6-5 12a5 5 0 0 0 10 0c0-2.4-1.2-3.8-1.9-5-.9 1.3-1.9 1.7-1.9 1.7C14.4 8 14 4.6 12 2z" style="fill:var(--deep);"></path></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:15.5px;font-weight:800;">Серия: 5 дней подряд</div>
+              <div style="font-size: 13px; color: var(--muted); margin-top: 2px; line-height: 1.4; display: none">За полезную привычку — зашли или прошли урок. Не за сделки.</div>
+            </div>
+          </div>
+          <div style="margin-top:22px;font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--muted);">БЕЙДЖИ</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+            <sc-for list="{{ badges }}" as="b" hint-placeholder-count="4">
+              <div style="background:var(--card);border-radius:20px;padding:16px;box-shadow:0 6px 18px rgba(80,55,0,.05);opacity:{{ b.op }};">
+                <div style="width:40px;height:40px;border-radius:999px;background:{{ b.bg }};display:flex;align-items:center;justify-content:center;">
+                  <sc-if value="{{ b.done }}" hint-placeholder-val="{{ true }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" style="fill:none;stroke:var(--accent-ink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+                  </sc-if>
+                  <sc-if value="{{ b.inWork }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:12px;font-weight:800;color:var(--muted);">{{ b.frac }}</span>
+                  </sc-if>
+                </div>
+                <div style="font-size:14px;font-weight:800;margin-top:10px;line-height:1.3;">{{ b.t }}</div>
+                <div style="font-size:12.5px;color:var(--muted);margin-top:3px;">{{ b.sub }}</div>
+                <sc-if value="{{ b.inWork }}" hint-placeholder-val="{{ false }}">
+                  <div style="height:6px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:10px;">
+                    <div style="height:100%;border-radius:999px;background:var(--accent);width:{{ b.pct }};"></div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:var(--card);border-radius:24px;padding:20px;margin-top:14px;box-shadow:0 8px 24px rgba(80,55,0,.06);">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:15.5px;font-weight:800;">Цель «Отпуск»</div>
+              <div style="font-size:14px;font-weight:900;color:var(--deep);">52 %</div>
+            </div>
+            <div style="height:10px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:10px;">
+              <div style="height:100%;width:52%;border-radius:999px;background:var(--accent);"></div>
+            </div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px;">52 340 ₽ из 100 000 ₽ · к июню</div>
+          </div>
+          <button onClick="{{ onLesson }}" style="width:100%;height:56px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:16.5px;font-weight:800;cursor:pointer;margin-top:16px;">{{ lessonBtn }}</button>
+        </div>
+        </sc-if>
+
+        <!-- ПОКУПКА (оверлей) -->
+        <sc-if value="{{ buyOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Покупка" style="position:absolute;inset:0;background:var(--bg);z-index:30;overflow-y:auto;padding:64px 20px 40px;box-sizing:border-box;animation:pkup .25s ease;">
+          <sc-if value="{{ buy1 }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);">ШАГ 1 ИЗ 2</div>
+              <button onClick="{{ closeBuy }}" style="width:40px;height:40px;border:none;border-radius:999px;background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" style="fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;"></path></svg></button>
+            </div>
+            <div style="font-size:28px;font-weight:900;margin-top:10px;">Сколько вложить?</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-top:36px;">
+              <button onClick="{{ decAmount }}" style="width:56px;height:56px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);font-size:26px;font-weight:700;color:var(--ink);cursor:pointer;">−</button>
+              <div style="font-size:44px;font-weight:900;letter-spacing:-1px;min-width:170px;text-align:center;">{{ amountLabel }} ₽</div>
+              <button onClick="{{ incAmount }}" style="width:56px;height:56px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);font-size:26px;font-weight:700;color:var(--ink);cursor:pointer;">+</button>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:22px;">
+              <sc-for list="{{ presets }}" as="p" hint-placeholder-count="3">
+                <button onClick="{{ p.onTap }}" style="{{ p.style }}">{{ p.label }}</button>
+              </sc-for>
+            </div>
+            <div style="text-align:center;font-size:14.5px;color:var(--muted);margin-top:22px;">Через год — примерно <b style="color:var(--gain);">{{ estLabel }}</b></div>
+            <div style="text-align:center;font-size:13px;color:var(--muted);margin-top:6px;">Покупаем на сумму, а не «лотами» — так проще</div>
+            <button onClick="{{ toConfirm }}" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:32px;">Дальше</button>
+          </div>
+          </sc-if>
+          <sc-if value="{{ buy2 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);">ШАГ 2 ИЗ 2</div>
+              <button onClick="{{ closeBuy }}" style="width:40px;height:40px;border:none;border-radius:999px;background:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" style="fill:none;stroke:var(--muted);stroke-width:2.4;stroke-linecap:round;"></path></svg></button>
+            </div>
+            <div style="font-size:28px;font-weight:900;margin-top:10px;">Всё верно?</div>
+            <div style="background:var(--card);border-radius:24px;padding:24px;margin-top:20px;box-shadow:0 8px 24px rgba(80,55,0,.06);text-align:center;">
+              <div style="width:56px;height:56px;border-radius:999px;background:#3E8E5A;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:800;margin:0 auto;">С</div>
+              <div style="font-size:20px;font-weight:900;margin-top:12px;line-height:1.35;">Вы покупаете<br>Сбербанк на {{ amountLabel }} ₽</div>
+            </div>
+            <div style="background:var(--card);border-radius:20px;margin-top:12px;box-shadow:0 6px 18px rgba(80,55,0,.05);overflow:hidden;">
+              <div style="display:flex;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--line);font-size:14.5px;"><span style="color:var(--muted);">Когда купим</span><b>Сразу</b></div>
+              <div style="display:flex;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--line);font-size:14.5px;"><span style="color:var(--muted);">Комиссия</span><b>0 ₽</b></div>
+              <div style="display:flex;justify-content:space-between;padding:15px 18px;font-size:14.5px;"><span style="color:var(--muted);">Продать можно</span><b>В любой день</b></div>
+            </div>
+            <button onClick="{{ confirmBuy }}" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:20px;">Подтвердить покупку</button>
+            <button onClick="{{ backToAmount }}" style="width:100%;height:52px;border:none;border-radius:16px;background:none;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;color:var(--muted);cursor:pointer;margin-top:6px;">Изменить сумму</button>
+          </div>
+          </sc-if>
+          <sc-if value="{{ buy3 }}" hint-placeholder-val="{{ false }}">
+          <div style="position:relative;min-height:640px;">
+            {{ confettiNodes }}
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:60px;animation:pkpop .5s ease;">
+              <svg width="110" height="110" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" style="fill:var(--accent);"></circle><circle cx="20" cy="20" r="13" style="fill:none;stroke:var(--accent-ink);stroke-width:1.4;opacity:.35;"></circle><path d="M13 17.5q2.5-2.5 5 0M22 17.5q2.5-2.5 5 0" style="fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linecap:round;"></path><path d="M14 22.5q6 5.5 12 0" style="fill:none;stroke:var(--accent-ink);stroke-width:2.2;stroke-linecap:round;"></path></svg>
+              <div style="font-size:28px;font-weight:900;margin-top:20px;">Ура — первая покупка!</div>
+              <div style="font-size:15px;color:var(--muted);margin-top:8px;line-height:1.5;">Сбербанк на {{ amountLabel }} ₽ теперь в вашем портфеле</div>
+              <div style="display:flex;gap:10px;margin-top:22px;">
+                <div style="background:var(--gainbg);color:var(--gain);font-size:15px;font-weight:900;border-radius:999px;padding:10px 18px;">+100 XP</div>
+                <div style="background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:900;border-radius:999px;padding:10px 18px;">Бейдж «Первая покупка»</div>
+              </div>
+              <div style="font-size:13.5px;color:var(--muted);margin-top:20px;line-height:1.5;max-width:280px;">Совет от Копи: следующая привычка — не продавать при первых колебаниях. Время работает на вас.</div>
+              <button onClick="{{ finishBuy }}" style="width:100%;height:60px;border:none;border-radius:16px;background:var(--accent);color:var(--accent-ink);font-family:'Golos Text',sans-serif;font-size:18px;font-weight:800;cursor:pointer;margin-top:32px;">Смотреть портфель</button>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- тост -->
+        <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:20px;right:20px;bottom:112px;background:var(--ink);color:var(--bg);border-radius:16px;padding:14px 18px;font-size:14px;font-weight:600;text-align:center;z-index:40;animation:pkup .25s ease;line-height:1.4;">{{ toast }}</div>
+        </sc-if>
+
+        <!-- таб-бар -->
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);display:flex;padding:8px 6px 26px;">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+            <button onClick="{{ t.onTap }}" style="flex:1;border:none;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;font-family:'Golos Text',sans-serif;">
+              <svg width="26" height="26" viewBox="0 0 24 24"><path d="{{ t.d }}" style="fill:none;stroke:{{ t.color }};stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"></path></svg>
+              <span style="font-size:10.5px;font-weight:700;color:{{ t.color }};">{{ t.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </x-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;dark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Тема&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#FFB020&quot;,&quot;options&quot;:[&quot;#FFB020&quot;,&quot;#FF7A59&quot;,&quot;#4CAF6D&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Тема&quot;}}">
+class Component extends DCLogic {
+  state = { dark: false, empty: false, tab: 'port', cat: 'list', expOpen: false, buy: 0, amount: 5000, lessonDone: false, xp: 240, toast: '', confetti: [] };
+
+  fmt(n) { return n.toLocaleString('ru-RU'); }
+
+  isDark() { return this.state.darkOverride !== undefined ? this.state.darkOverride : (this.props.dark ?? this.state.dark); }
+
+  syncTheme() {
+    document.body.classList.toggle('pk-dark', this.isDark());
+    const acc = this.props.accent;
+    const deepMap = { '#FFB020': '#A05C00', '#FF7A59': '#B03A1D', '#4CAF6D': '#22693C' };
+    if (acc) {
+      document.body.style.setProperty('--accent', acc);
+      if (!this.isDark() && deepMap[acc]) document.body.style.setProperty('--deep', deepMap[acc]);
+      else document.body.style.removeProperty('--deep');
+    } else {
+      document.body.style.removeProperty('--accent');
+      document.body.style.removeProperty('--deep');
+    }
+  }
+  componentDidMount() { this.syncTheme(); }
+  componentDidUpdate() { this.syncTheme(); }
+  componentWillUnmount() { clearTimeout(this._tt); document.body.classList.remove('pk-dark'); }
+
+  showToast(msg) {
+    clearTimeout(this._tt);
+    this.setState({ toast: msg });
+    this._tt = setTimeout(() => this.setState({ toast: '' }), 2800);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const seg = (act) => 'height:34px;padding:0 14px;border-radius:999px;border:none;cursor:pointer;font-family:Golos Text,sans-serif;font-size:12.5px;font-weight:700;' +
+      (act ? 'background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(80,55,0,.12);' : 'background:none;color:var(--muted);');
+    const tabs = [
+      { key: 'port', label: 'Портфель', d: 'M4 8h16v11H4zM8 8V6.5A2.5 2.5 0 0 1 10.5 4h3A2.5 2.5 0 0 1 16 6.5V8M4 12h5m6 0h5' },
+      { key: 'cat', label: 'Каталог', d: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z' },
+      { key: 'ideas', label: 'Идеи', d: 'M12 3a6 6 0 0 1 6 6c0 2.6-1.6 3.8-2.5 5.5h-7C7.6 12.8 6 11.6 6 9a6 6 0 0 1 6-6zM9.5 18h5M10.5 21h3' },
+      { key: 'learn', label: 'Обучение', d: 'M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2zM5 4v14M9 8h6' },
+      { key: 'prof', label: 'Профиль', d: 'M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM4 21c1.5-4 4.5-6 8-6s6.5 2 8 6' },
+    ].map(t => ({ ...t, color: s.tab === t.key ? 'var(--deep)' : 'var(--muted)',
+      onTap: () => this.setState({ tab: t.key, buy: 0, cat: 'list' }) }));
+
+    const holdings = [
+      { l: 'С', c: '#3E8E5A', name: 'Сбербанк', amt: '15 200 ₽', chg: '+2,1 %', up: true },
+      { l: 'Г', c: '#4A7DA8', name: 'Газпром', amt: '9 800 ₽', chg: '−1,3 %', up: false, note: 'Рынок иногда дышит. Для долгих целей это нормально.' },
+      { l: 'В', c: '#8A6FBF', name: 'Фонд «Вечный портфель»', amt: '18 400 ₽', chg: '+0,8 %', up: true },
+      { l: 'З', c: '#C9A227', name: 'Золото', amt: '8 940 ₽', chg: '+0,4 %', up: true },
+    ].map(h => ({ ...h, chipBg: h.up ? 'var(--gainbg)' : 'var(--losbg)', chipC: h.up ? 'var(--gain)' : 'var(--muted)' }));
+
+    const riskStyle = (r) => r === 'спокойно'
+      ? { riskBg: 'var(--gainbg)', riskC: 'var(--gain)' }
+      : { riskBg: 'var(--soft)', riskC: 'var(--deep)' };
+    const catalog = [
+      { l: 'С', c: '#3E8E5A', name: 'Сбербанк', sub: 'Самый большой банк страны', risk: 'средне', ex: '10 000 ₽ → ≈ 11 200 ₽ за год', tap: true },
+      { l: 'Г', c: '#4A7DA8', name: 'Газпром', sub: 'Добывает и продаёт газ', risk: 'средне', ex: '10 000 ₽ → ≈ 10 900 ₽ за год' },
+      { l: 'В', c: '#8A6FBF', name: 'Фонд «Вечный портфель»', sub: 'Всё сразу: акции, облигации, золото', risk: 'спокойно', ex: '10 000 ₽ → ≈ 10 800 ₽ за год' },
+      { l: 'З', c: '#C9A227', name: 'Золото', sub: 'Классика «на чёрный день»', risk: 'спокойно', ex: '10 000 ₽ → ≈ 10 600 ₽ за год' },
+    ].map(k => ({ ...k, ...riskStyle(k.risk),
+      onTap: k.tap ? () => this.setState({ cat: 'sber', expOpen: false })
+                   : () => this.showToast('В демо открывается только Сбербанк') }));
+
+    const badges = [
+      { t: 'Первая покупка', sub: 'Получен', done: true },
+      { t: 'Первый доход', sub: 'Получен', done: true },
+      { t: '5 бумаг в корзине', sub: 'Осталась одна', frac: '4/5', pct: '80%' },
+      { t: '30 дней с нами', sub: 'Уже 18 дней', frac: '18/30', pct: '60%' },
+    ].map(b => ({ ...b, inWork: !b.done, op: b.done ? 1 : 0.92, bg: b.done ? 'var(--accent)' : 'var(--soft)' }));
+
+    const questSteps = [
+      { t: 'Пополните счёт', done: true }, { t: 'Выберите, во что вложить', cur: true }, { t: 'Купите первую бумагу' },
+    ].map((q, i) => ({ ...q,
+      mark: q.done ? '✓' : String(i + 1),
+      bg: q.done ? 'var(--accent)' : q.cur ? 'var(--card)' : 'var(--soft)',
+      fg: q.done ? 'var(--accent-ink)' : q.cur ? 'var(--deep)' : 'var(--muted)',
+      tc: q.done || q.cur ? 'var(--ink)' : 'var(--muted)' }));
+
+    const presetVals = [1000, 5000, 10000];
+    const presets = presetVals.map(v => ({
+      label: this.fmt(v) + ' ₽',
+      onTap: () => this.setState({ amount: v }),
+      style: 'height:44px;padding:0 16px;border-radius:999px;cursor:pointer;white-space:nowrap;border:1.5px solid;font-family:Golos Text,sans-serif;font-size:14.5px;font-weight:800;' +
+        (s.amount === v ? 'border-color:var(--accent);background:var(--accent);color:var(--accent-ink);' : 'border-color:var(--line);background:var(--card);color:var(--ink);'),
+    }));
+
+    const confettiColors = ['#FFB020', '#2E7D4F', '#FF7A59', '#8A6FBF', '#C9A227'];
+    const confettiNodes = React.createElement('div', { style: { position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' } },
+      s.confetti.map((c, i) => React.createElement('div', { key: i, style: {
+        position: 'absolute', top: -24, left: c.left + '%', width: c.w, height: c.h,
+        background: confettiColors[i % 5], borderRadius: 2, transform: 'rotate(' + c.rot + 'deg)',
+        animation: 'pkfall ' + c.dur + 's ' + c.delay + 's cubic-bezier(.25,.6,.35,1) forwards',
+      } })));
+
+    const xp = s.xp + (s.lessonDone ? 20 : 0);
+    return {
+      isDark: this.isDark(),
+      themeLabel: this.isDark() ? 'Светлая тема' : 'Тёмная тема',
+      toggleDark: () => this.setState({ darkOverride: !this.isDark() }),
+      showHome: s.tab === 'port', hasMoney: s.tab === 'port' && !s.empty, isEmpty: s.tab === 'port' && s.empty,
+      showCat: s.tab === 'cat' && s.cat === 'list', showSber: s.tab === 'cat' && s.cat === 'sber',
+      showIdeas: s.tab === 'ideas', showLearn: s.tab === 'learn', showProf: s.tab === 'prof',
+      segFullStyle: seg(!s.empty), segEmptyStyle: seg(s.empty),
+      demoFull: () => this.setState({ empty: false }), demoEmpty: () => this.setState({ empty: true }),
+      goCatalog: () => this.setState({ tab: 'cat', cat: 'list' }),
+      backToCat: () => this.setState({ cat: 'list' }),
+      startBuy: () => this.setState({ buy: 1 }),
+      closeBuy: () => this.setState({ buy: 0 }),
+      backToAmount: () => this.setState({ buy: 1 }),
+      toConfirm: () => this.setState({ buy: 2 }),
+      confirmBuy: () => this.setState({ buy: 3, confetti: Array.from({ length: 44 }, () => ({
+        left: Math.random() * 100, delay: Math.random() * 0.9, dur: 2.2 + Math.random() * 2,
+        rot: Math.random() * 360, w: 6 + Math.random() * 6, h: 8 + Math.random() * 8 })) }),
+      finishBuy: () => this.setState({ buy: 0, tab: 'port', cat: 'list', empty: false }),
+      toggleExp: () => this.setState({ expOpen: !s.expOpen }),
+      expOpen: s.expOpen, expArrow: s.expOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+      onTopUp: () => this.showToast('Пополнение в 2 тапа — фаза 2'),
+      onGoalTip: () => this.showToast('Пополняйте на 8 000 ₽ в месяц — и успеете к июню'),
+      onLesson: () => {
+        if (s.lessonDone) { this.showToast('Урок дня уже пройден. Новый — завтра!'); return; }
+        this.setState({ lessonDone: true });
+        this.showToast('+20 XP! Урок пройден — так держать');
+      },
+      lessonChip: s.lessonDone ? '✓ +20 XP' : '+20 XP',
+      lessonBtn: s.lessonDone ? 'Урок дня пройден ✓' : 'Урок дня · +20 XP',
+      buyOpen: s.buy > 0, buy1: s.buy === 1, buy2: s.buy === 2, buy3: s.buy === 3,
+      amountLabel: this.fmt(s.amount),
+      estLabel: this.fmt(Math.round(s.amount * 1.12 / 100) * 100) + ' ₽',
+      decAmount: () => this.setState({ amount: Math.max(1000, s.amount - 1000) }),
+      incAmount: () => this.setState({ amount: Math.min(100000, s.amount + 1000) }),
+      presets,
+      xpLabel: xp + ' / 500', xpPct: Math.round(xp / 500 * 100) + '%', xpLeft: 500 - xp,
+      toast: s.toast, confettiNodes,
+      tabs, holdings, catalog, badges, questSteps,
+    };
+  }
+}
+</script>
+</body>
+</html>
