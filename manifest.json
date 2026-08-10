@@ -1,14 +1,14 @@
 {
-  "name": "Копилка",
-  "short_name": "Копилка",
-  "description": "Инвестиции по-человечески",
+  "name": "Вектор Капитал",
+  "short_name": "Вектор",
+  "description": "Инвестиции. Спокойно.",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#F2F2F7",
-  "theme_color": "#F2F2F7",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "start_url": "./index.html",
   "icons": [
-    { "src": "assets/icon-kopilka-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "assets/icon-kopilka-180.png", "sizes": "180x180", "type": "image/png" }
+    { "src": "assets/icon-ios-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icon-ios-180.png", "sizes": "180x180", "type": "image/png" }
   ]
 }

@@ -1,0 +1,213 @@
+/* ============================================================
+   Вектор Капитал — флагманская тёмная тема (стиль Apple)
+   Подключается ПОСЛЕ system.css. Чёрный фон, графитовые карточки,
+   белое главное действие, зелёный — только рост и награды.
+   ============================================================ */
+
+.brand-ios {
+  --bg: #000000;
+  --card: #1C1C1E;
+  --card-2: #2C2C2E;
+  --ink: #FFFFFF;
+  --ink-2: rgba(235,235,245,.6);
+  --ink-3: rgba(235,235,245,.3);
+  --sep: rgba(84,84,88,.55);
+  --fill: rgba(120,120,128,.22);
+  --fill-2: rgba(120,120,128,.32);
+  --accent: #F5F5F7;          /* главное действие — белое */
+  --accent-fg: #000000;
+  --accent-soft: rgba(245,245,247,.12);
+  --gain: #30D158;
+  --gain-bg: rgba(48,209,88,.15);
+  --loss: rgba(235,235,245,.55);
+  --gold: #30D158;            /* награды — тоже зелёные, один акцент */
+  --gold-soft: rgba(48,209,88,.15);
+  --card-shadow: none;
+  --blur-bg: rgba(10,10,11,.78);
+  color-scheme: dark;
+}
+
+/* Таб-бар: активная вкладка — белая, как в системных приложениях */
+.brand-ios .tabbar button[aria-selected="true"] { color: #FFFFFF; }
+
+/* Кнопки: белая заливка + чёрный текст; вторичная — графит */
+.brand-ios .btn-primary { background: #F5F5F7; color: #000; }
+.brand-ios .btn-secondary { background: var(--fill); color: #FFFFFF; }
+.brand-ios .btn-plain { color: #FFFFFF; }
+.brand-ios .push-nav .back { color: #FFFFFF; }
+.brand-ios .seg-app button[aria-pressed="true"] { background: var(--card-2); }
+.brand-ios .amounts button { border-color: rgba(120,120,128,.5); }
+.brand-ios .amounts button[aria-pressed="true"] {
+  border-color: #F5F5F7;
+  background: rgba(245,245,247,.1);
+  color: #FFFFFF;
+}
+.brand-ios :where(button, a, [tabindex]):focus-visible { outline-color: #F5F5F7; }
+
+/* ============================================================
+   Герой-график (портфель / карточка актива)
+   ============================================================ */
+.chart-wrap { position: relative; margin-top: 6px; }
+.chart-wrap svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+.chart-grid line { stroke: rgba(255,255,255,.07); stroke-width: 1; }
+.chart-axis text {
+  fill: rgba(235,235,245,.3);
+  font-family: var(--font-ui);
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+}
+.chart-line {
+  fill: none;
+  stroke: var(--gain);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(48,209,88,.45));
+}
+.chart-area { opacity: 1; }
+.chart-dot-outer {
+  fill: rgba(48,209,88,.25);
+  animation: chartPulse 2s ease-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.chart-dot-inner { fill: var(--gain); }
+@keyframes chartPulse {
+  0% { transform: scale(.6); opacity: .9; }
+  70% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+.chart-scrub-line { stroke: rgba(235,235,245,.4); stroke-width: 1; stroke-dasharray: 2 3; }
+.chart-scrub-dot { fill: #FFFFFF; }
+.chart-scrub-label {
+  position: absolute;
+  top: -4px;
+  transform: translateX(-50%);
+  background: var(--card-2);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 4px 9px;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,.5);
+}
+.chart-scrub-label .d { color: var(--ink-2); font-weight: 500; margin-left: 5px; }
+.chart-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--ink-3);
+  margin-top: 4px;
+  padding: 0 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Переключатель периодов */
+.periods {
+  display: flex;
+  gap: 2px;
+  margin-top: 12px;
+}
+.periods button {
+  appearance: none;
+  border: 0;
+  flex: 1;
+  background: none;
+  color: var(--ink-2);
+  font: 600 12.5px/1 var(--font-ui);
+  padding: 7px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.periods button:active { transform: scale(.95); }
+.periods button[aria-pressed="true"] {
+  background: var(--card-2);
+  color: #FFFFFF;
+}
+
+/* Спарклайны в строках */
+.spark { flex: none; }
+.spark polyline {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.spark.up polyline { stroke: var(--gain); }
+.spark.down polyline { stroke: rgba(235,235,245,.4); }
+
+/* Строка «Свободные деньги» — как Buying Power */
+.power-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border-radius: var(--r-card);
+  padding: 14px 16px;
+  margin-top: 16px;
+  width: 100%;
+  border: 0;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  cursor: pointer;
+}
+.power-row:active { background: var(--card-2); }
+.power-row .pw-label { color: var(--ink-2); flex: 1; text-align: left; }
+.power-row .pw-val { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Логотип-плитка */
+.logo-tile {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #F5F5F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* Сертификат — графит и зелёная печать */
+.brand-ios .cert {
+  border-color: rgba(48,209,88,.5);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(48,209,88,.09), transparent 60%),
+    var(--card-2);
+}
+.brand-ios .cert .cert-cap { color: var(--gain); letter-spacing: .28em; }
+.brand-ios .cert .cert-name { font-family: var(--font-ui); font-weight: 700; letter-spacing: -.2px; }
+.brand-ios .cert .seal { border-color: var(--gain); color: var(--gain); }
+
+/* Индексные плитки (рынок) */
+.tiles { display: flex; gap: 10px; margin-top: 12px; }
+.tile {
+  flex: 1;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 0;
+}
+.tile .t-name { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.tile .t-val { font-size: 15px; font-weight: 700; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.tile .t-delta { font-size: 12px; font-weight: 600; color: var(--gain); margin-top: 1px; font-variant-numeric: tabular-nums; }
+.tile .spark { margin-top: 6px; }
+
+/* Скрим статус-бара для standalone */
+@media (max-width: 560px), (max-height: 560px) and (pointer: coarse) {
+  .brand-ios .app::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background: rgba(0,0,0,.55);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    z-index: 65;
+    pointer-events: none;
+  }
+}
