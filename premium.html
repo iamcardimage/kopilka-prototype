@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Копилка — прототип iOS</title>
-<meta name="theme-color" content="#F2F2F7">
+<title>Вектор Капитал Premium — прототип iOS</title>
+<meta name="theme-color" content="#000000">
 <link rel="stylesheet" href="assets/system.css">
 </head>
-<body class="studio">
+<body class="studio studio-dark">
 
 <header class="studio-head">
-  <div class="eyebrow">Прототип · iOS</div>
-  <h1>Копилка</h1>
-  <p>Инвестиции по-человечески: суммы в рублях, без жаргона и тикеров</p>
+  <div class="eyebrow">Прототип · iOS · Dark</div>
+  <h1>Вектор Капитал Premium</h1>
+  <p>Ощущение частного банка: тёмная тема, серифный капитал, сертификат акционера</p>
   <nav class="studio-nav">
-    <a href="index.html" aria-current="page">Копилка</a>
+    <a href="index.html">Копилка</a>
     <a href="vektor.html">Вектор Капитал</a>
-    <a href="premium.html">Premium</a>
+    <a href="premium.html" aria-current="page">Premium</a>
   </nav>
 </header>
 
 <div class="stage">
 <div class="device">
-<div class="device-screen brand-kopilka">
+<div class="device-screen brand-premium" data-welcome-toast="+5 XP за визит · серия 5 дней">
   <div class="island"></div>
   <div class="statusbar">
     <span>9:41</span>
@@ -47,48 +47,64 @@
     <section class="screen active" data-screen="home">
       <div style="display:flex;align-items:center;gap:12px;">
         <svg class="mascot" viewBox="0 0 40 40" aria-hidden="true">
-          <circle cx="20" cy="20" r="19" fill="var(--accent)"/>
-          <circle cx="20" cy="20" r="13.5" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="1.5"/>
-          <circle cx="16" cy="18" r="1.9" fill="#fff"/><circle cx="24" cy="18" r="1.9" fill="#fff"/>
-          <path d="M15.5 23.5q4.5 3.6 9 0" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="19" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="14" fill="none" stroke="var(--gold)" stroke-width=".8" opacity=".5"/>
+          <path d="M14.5 25.5 25.5 14.5M17.5 14.5h8v8" stroke="var(--gold)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div style="flex:1;min-width:0;">
           <div style="font-size:20px;font-weight:700;letter-spacing:-.2px;">Здравствуйте, Анна</div>
           <div style="font-size:13px;color:var(--ink-2);">Уровень 2 · Новичок</div>
         </div>
-        <span class="chip chip-neutral" title="Серия: 5 дней подряд">
-          <svg width="13" height="15" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2.5c1.3 3.6-4.4 5.3-4.4 10.4a4.4 4.4 0 0 0 8.8 0c0-2.1-1-3.4-1.7-4.4-.8 1.2-1.7 1.5-1.7 1.5.5-2.2.1-5.1-1-7.5z"/></svg>
+        <span class="chip chip-gold" title="Серия: 5 дней подряд">
+          <svg width="13" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c1.3 3.6-4.4 5.3-4.4 10.4a4.4 4.4 0 0 0 8.8 0c0-2.1-1-3.4-1.7-4.4-.8 1.2-1.7 1.5-1.7 1.5.5-2.2.1-5.1-1-7.5z"/></svg>
           5 дней
         </span>
       </div>
 
-      <div style="margin-top:12px;">
-        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--ink-2);margin-bottom:5px;">
-          <span>До уровня 3</span><span style="font-variant-numeric:tabular-nums;" data-bind="xp">240 / 400 XP</span>
-        </div>
-        <div class="bar gold"><i data-bind="xp-bar" style="width:60%;"></i></div>
-      </div>
-
       <!-- Есть портфель -->
       <div data-when="full">
-        <div style="margin-top:28px;">
-          <div class="money-label">Ваши деньги</div>
-          <div class="money-hero" data-bind="balance">52 340 ₽</div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap;">
-            <span class="chip chip-gain">▲ +320 ₽ за вчера · 0,6 %</span>
-            <span style="font-size:13px;color:var(--ink-2);">деньги работают</span>
+        <div class="card" style="margin-top:22px;background:linear-gradient(150deg,#17211C 0%,#101418 55%,#141210 100%);border:1px solid rgba(217,179,106,.25);padding:22px 20px;">
+          <div class="money-label" style="color:rgba(235,235,245,.55);">Ваш капитал</div>
+          <div class="money-hero serif" style="margin-top:6px;" data-bind="balance">52 340 ₽</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;">
+            <span class="chip chip-gain">▲ Вчера +320 ₽</span>
+            <span style="font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;">Вложено <span data-bind="invested">50 000 ₽</span> · Доход <span data-bind="profit" style="color:var(--gain);">+2 340 ₽</span></span>
           </div>
-          <p class="money-sub" style="margin-top:6px;">Вложили <span data-bind="invested">50 000 ₽</span> — заработали <b data-bind="profit">+2 340 ₽</b></p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:16px;padding-top:14px;border-top:.5px solid rgba(217,179,106,.25);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="m12 3 2.4 5.4 5.9.6-4.4 4 1.2 5.8L12 15.9l-5.1 2.9 1.2-5.8-4.4-4 5.9-.6z"/></svg>
+            <span style="font-size:13.5px;color:var(--gold);font-weight:500;">Вы — акционер Сбербанка и Газпрома</span>
+          </div>
         </div>
 
         <div class="btn-row">
           <button class="btn btn-primary" data-sheet="topup">Пополнить</button>
-          <button class="btn btn-secondary" data-go-tab="catalog">Купить</button>
+          <button class="btn btn-secondary" style="color:var(--ink);" data-go-tab="catalog">Купить</button>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div class="ring">
+              <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+                <circle cx="22" cy="22" r="18" fill="none" stroke="var(--fill)" stroke-width="4"/>
+                <circle cx="22" cy="22" r="18" fill="none" stroke="var(--gold)" stroke-width="4" stroke-linecap="round" stroke-dasharray="113" stroke-dashoffset="75.5" data-bind="ring"/>
+              </svg>
+              <span class="ring-txt" data-bind="ring-count">1/3</span>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:16px;font-weight:600;">Задания на сегодня</div>
+              <div style="font-size:13px;color:var(--ink-2);">+5 XP за визит уже получены</div>
+            </div>
+          </div>
+          <div class="kv" style="margin-top:8px;">
+            <div class="kv-row task-row" data-task="visit"><span class="k">Зайти в приложение</span><span class="v" style="color:var(--gold);">+5 XP</span></div>
+            <div class="kv-row task-row" data-task="lesson" style="cursor:pointer;" data-sheet="lesson"><span class="k">Пройти урок дня</span><span class="v" style="color:var(--gold);">+20 XP</span></div>
+            <div class="kv-row task-row" data-task="topup" style="cursor:pointer;" data-sheet="topup"><span class="k">Пополнить на любую сумму</span><span class="v" style="color:var(--gold);">+10 XP</span></div>
+          </div>
         </div>
 
         <div class="card tappable" role="button" tabindex="0">
           <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+            <div style="width:36px;height:36px;border-radius:10px;background:var(--gold-soft);color:var(--gold);display:flex;align-items:center;justify-content:center;flex:none;">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="2.5"/><path d="M9 8V6.5A2.5 2.5 0 0 1 11.5 4h1A2.5 2.5 0 0 1 15 6.5V8"/></svg>
             </div>
             <div style="flex:1;">
@@ -97,26 +113,18 @@
             </div>
             <div style="font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;" data-bind="goal-pct">52 %</div>
           </div>
-          <div class="bar" style="margin-top:12px;"><i data-bind="goal-bar" style="width:52%;"></i></div>
-          <div style="font-size:13px;color:var(--ink-2);margin-top:8px;">Осталось <span data-bind="goal-remaining">47 660 ₽</span> — вы на полпути!</div>
-          <button class="btn btn-plain" style="justify-content:flex-start;padding:0;height:auto;margin-top:8px;font-size:15px;" data-toast-btn="Подсказки по цели — фаза 2">Как дойти быстрее
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </button>
+          <div class="bar gold" style="margin-top:12px;"><i data-bind="goal-bar" style="width:52%;"></i></div>
+          <div style="font-size:13px;color:var(--ink-2);margin-top:8px;">Осталось <span data-bind="goal-remaining">47 660 ₽</span> — вы на полпути</div>
         </div>
 
-        <div class="card tappable" role="button" tabindex="0" data-sheet="lesson">
-          <div class="sheet-cap" style="color:var(--accent);">Урок дня · 3 мин · +20 XP</div>
-          <div style="font-size:16px;font-weight:600;margin-top:6px;line-height:1.3;">Почему цены прыгают — и почему это не страшно</div>
-        </div>
-
-        <div class="section-h">Во что вложены деньги</div>
+        <div class="section-h">Ваши активы</div>
         <div class="card flush">
           <div class="row no-icon" style="cursor:default;" data-alloc="bonds">
             <div class="r-body"><div class="r-title">Облигации</div><div class="r-sub">спокойная основа</div></div>
             <div class="r-val"><div class="v">31 400 ₽</div><div class="d" style="color:var(--ink-2);">60 %</div></div>
           </div>
           <div class="row no-icon" style="cursor:default;" data-alloc="stocks">
-            <div class="r-body"><div class="r-title">Акции</div><div class="r-sub">рост на годы вперёд</div></div>
+            <div class="r-body"><div class="r-title">Акции</div><div class="r-sub">Сбербанк · Газпром</div></div>
             <div class="r-val"><div class="v">15 700 ₽</div><div class="d" style="color:var(--ink-2);">30 %</div></div>
           </div>
           <div class="row no-icon" style="cursor:default;" data-alloc="cash">
@@ -124,27 +132,28 @@
             <div class="r-val"><div class="v">5 240 ₽</div><div class="d" style="color:var(--ink-2);">10 %</div></div>
           </div>
         </div>
+        <div style="font-size:13px;color:var(--gain);font-weight:600;margin:10px 4px 0;">Разложено по 4 — отлично</div>
       </div>
 
       <!-- Новичок -->
       <div data-when="new" hidden>
         <div class="card" style="margin-top:24px;display:flex;gap:14px;align-items:flex-start;">
           <svg class="mascot" viewBox="0 0 40 40" aria-hidden="true">
-            <circle cx="20" cy="20" r="19" fill="var(--accent)"/>
-            <circle cx="20" cy="20" r="13.5" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="1.5"/>
-            <circle cx="16" cy="18" r="1.9" fill="#fff"/><circle cx="24" cy="18" r="1.9" fill="#fff"/>
-            <path d="M15.5 23.5q4.5 3.6 9 0" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <circle cx="20" cy="20" r="19" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <path d="M14.5 25.5 25.5 14.5M17.5 14.5h8v8" stroke="var(--gold)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <p style="margin:2px 0 0;font-size:15px;line-height:1.45;">Привет, я Копи! Готовы начать? Это 2 минуты — и никаких сложных слов.</p>
+          <div>
+            <div style="font-size:18px;font-weight:700;letter-spacing:-.2px;">Ваш первый капитал — <span style="color:var(--gold);">за 3 шага</span></div>
+            <p style="margin:6px 0 0;font-size:14px;line-height:1.45;color:var(--ink-2);">Я Вик, помогу. Это 2 минуты — без сложных слов.</p>
+          </div>
         </div>
 
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:baseline;">
-            <span class="sheet-cap" style="color:var(--accent);">Квест · шаг 1 из 3</span>
+            <span class="sheet-cap" style="color:var(--gold);">Квест · шаг 1 из 3</span>
             <span class="chip chip-gold" style="padding:3px 9px;font-size:11.5px;">бейдж + 100 XP</span>
           </div>
-          <div style="font-size:18px;font-weight:700;margin-top:8px;letter-spacing:-.2px;">Собери первый портфель за 3 шага</div>
-          <div class="bar" style="margin-top:12px;"><i style="width:33%;"></i></div>
+          <div class="bar gold" style="margin-top:14px;"><i style="width:33%;"></i></div>
           <button class="btn btn-primary" style="margin-top:16px;" data-go-tab="catalog">Продолжить квест</button>
         </div>
 
@@ -152,8 +161,13 @@
           <div style="width:36px;height:36px;border-radius:10px;background:var(--gain-bg);color:var(--gain);display:flex;align-items:center;justify-content:center;flex:none;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
           </div>
-          <div style="font-size:14px;line-height:1.4;">Деньги на счёте: <b>1 000 ₽</b> — уже пополнили, отличный старт!</div>
+          <div style="font-size:14px;line-height:1.4;">На счёте <b>1 000 ₽</b> — уже пополнили, отличный старт</div>
         </div>
+      </div>
+
+      <div class="trust">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 5 6v5.5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/></svg>
+        <span>Лицензия Банка России. Бумаги хранятся в депозитарии — отдельно от денег компании.</span>
       </div>
     </section>
 
@@ -162,13 +176,13 @@
       <h1 class="large-title">Каталог</h1>
       <p class="subtitle">Во что вложить — простыми словами</p>
 
-      <div class="card tappable" role="button" tabindex="0" data-push="asset" style="background:linear-gradient(135deg, var(--accent) 0%, #0C7A41 100%);color:#fff;">
+      <div class="card tappable" role="button" tabindex="0" data-go-tab="ideas" style="background:linear-gradient(135deg,#17352A 0%,#0D1F18 100%);border:1px solid rgba(76,195,138,.25);">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.85;">Идея дня</span>
-          <span class="chip" style="background:rgba(255,255,255,.2);color:#fff;">спокойно</span>
+          <span style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gain);">Идея дня</span>
+          <span class="chip chip-neutral">спокойно</span>
         </div>
         <div style="font-size:19px;font-weight:700;margin-top:10px;letter-spacing:-.2px;">Облигации для спокойного старта</div>
-        <div style="font-size:14px;opacity:.85;margin-top:6px;">Вложили 12 000 ₽ — через год примерно <b>14 600 ₽</b></div>
+        <div style="font-size:14px;color:var(--ink-2);margin-top:6px;">Вложили 12 000 ₽ — через год примерно <b style="color:var(--gain);">14 600 ₽</b> · смотреть в «Идеях» →</div>
       </div>
 
       <div class="section-h">Популярное</div>
@@ -213,33 +227,82 @@
     <!-- ================= Идеи ================= -->
     <section class="screen" data-screen="ideas">
       <h1 class="large-title">Идеи</h1>
-      <p class="subtitle">Готовые подборки: во что вложить и почему</p>
-      <div class="empty">
-        <div class="e-ico">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.55 1.1 1.3 1.1 2.2h5c0-.9.4-1.65 1.1-2.2A6 6 0 0 0 12 3z"/><path d="M10 19h4"/></svg>
+      <p class="subtitle">Готовые решения — с объяснением, почему</p>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="sheet-cap" style="color:var(--gain);">Идея дня</span>
+          <span class="chip chip-neutral">на 1–2 года</span>
         </div>
-        <h3>Скоро здесь будут идеи</h3>
-        <p>Подборки с объяснением, почему и с каким риском. Появятся во второй фазе.</p>
+        <div style="font-size:19px;font-weight:700;margin-top:8px;letter-spacing:-.2px;">Облигации для спокойного старта</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:8px;">
+          <span style="font-size:14px;color:var(--ink-2);">Вложили 12 000 ₽ — через год примерно</span>
+          <span style="font-size:20px;font-weight:700;color:var(--gain);font-variant-numeric:tabular-nums;">14 600 ₽</span>
+        </div>
+        <p style="font-size:14px;line-height:1.5;color:var(--ink-2);margin:10px 0 0;"><b style="color:var(--ink);">Почему сейчас:</b> ставки высокие — государство и компании платят за ожидание больше обычного. Подходит для первой покупки: колебания маленькие.</p>
+        <button class="btn btn-secondary" style="margin-top:16px;color:var(--ink);" data-go-tab="catalog">Смотреть в каталоге</button>
+      </div>
+
+      <div class="section-h">Ещё три идеи</div>
+      <div class="card flush">
+        <button class="row no-icon" data-toast-btn="Идея откроется во второй фазе">
+          <span class="r-body"><span class="r-title">Дивидендные акции</span><span class="r-sub" style="display:block;">компании, которые делятся прибылью</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+        <button class="row no-icon" data-toast-btn="Идея откроется во второй фазе">
+          <span class="r-body"><span class="r-title">Фонд «На всё сразу»</span><span class="r-sub" style="display:block;">один фонд — весь рынок</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+        <button class="row no-icon" data-toast-btn="Идея откроется во второй фазе">
+          <span class="r-body"><span class="r-title">Золото как защита</span><span class="r-sub" style="display:block;">когда рынок штормит</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
       </div>
     </section>
 
     <!-- ================= Обучение ================= -->
     <section class="screen" data-screen="learn">
       <h1 class="large-title">Обучение</h1>
-      <p class="subtitle">Уроки по 3 минуты, +20 XP за каждый</p>
+      <p class="subtitle">3 минуты в день — и рынок понятен</p>
 
-      <div class="card tappable" role="button" tabindex="0" data-sheet="lesson">
-        <div class="sheet-cap" style="color:var(--accent);">Урок дня · 3 мин · +20 XP</div>
-        <div style="font-size:17px;font-weight:700;margin-top:6px;line-height:1.3;">Почему цены прыгают — и почему это не страшно</div>
-        <button class="btn btn-secondary" style="margin-top:14px;height:44px;font-size:15px;">Начать урок</button>
+      <div class="section-h">Раздел 1 · Основы</div>
+      <div class="card flush">
+        <div class="path-row">
+          <div class="path-dot done">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:15px;font-weight:600;">Что такое акция</div>
+            <div style="font-size:12.5px;color:var(--ink-2);">пройдено · +20 XP</div>
+          </div>
+        </div>
+        <div class="path-row" style="cursor:pointer;" data-sheet="lesson" role="button" tabindex="0">
+          <div class="path-dot now">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:15px;font-weight:600;">Почему цены прыгают</div>
+            <div style="font-size:12.5px;color:var(--gain);font-weight:600;">урок дня · 3 мин · +20 XP</div>
+          </div>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--ink-3);"><path d="m9 5 7 7-7 7"/></svg>
+        </div>
+        <div class="path-row" style="opacity:.55;">
+          <div class="path-dot lock">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="10.5" width="13" height="9" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:15px;font-weight:600;">Облигации простыми словами</div>
+            <div style="font-size:12.5px;color:var(--ink-2);">откроется после урока дня</div>
+          </div>
+        </div>
       </div>
 
-      <div class="empty" style="padding-top:40px;">
-        <div class="e-ico">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21z"/><path d="M20 18.5H6.5A2.5 2.5 0 0 0 4 21"/></svg>
+      <div class="section-h">Раздел 2 · Спокойный инвестор</div>
+      <div class="card" style="display:flex;gap:12px;align-items:center;opacity:.55;">
+        <div class="path-dot lock">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="10.5" width="13" height="9" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>
         </div>
-        <h3>Курс «Основы» готовится</h3>
-        <p>Короткие уроки простыми словами. Полное дерево курсов — во второй фазе.</p>
+        <div style="font-size:14px;color:var(--ink-2);">Откроется после раздела «Основы»</div>
       </div>
     </section>
 
@@ -248,21 +311,21 @@
       <h1 class="large-title">Профиль</h1>
 
       <div class="card" style="display:flex;align-items:center;gap:14px;">
-        <div class="avatar">А</div>
+        <div class="avatar" style="background:var(--gold);color:#1A1405;">А</div>
         <div style="flex:1;">
           <div style="font-size:18px;font-weight:700;">Анна</div>
-          <div style="font-size:13px;color:var(--ink-2);">Ученик · Уровень 2</div>
+          <div style="font-size:13px;color:var(--ink-2);">Уровень 2 · Новичок · инвестор с июля</div>
         </div>
         <span class="chip chip-gold" data-bind="xp-chip">240 XP</span>
       </div>
 
       <div class="card" style="display:flex;gap:12px;align-items:flex-start;">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--fill);display:flex;align-items:center;justify-content:center;flex:none;">
+        <div style="width:36px;height:36px;border-radius:10px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;flex:none;">
           <svg width="17" height="19" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 2.5c1.3 3.6-4.4 5.3-4.4 10.4a4.4 4.4 0 0 0 8.8 0c0-2.1-1-3.4-1.7-4.4-.8 1.2-1.7 1.5-1.7 1.5.5-2.2.1-5.1-1-7.5z"/></svg>
         </div>
         <div>
           <div style="font-size:16px;font-weight:600;">Серия: 5 дней подряд</div>
-          <div style="font-size:13px;color:var(--ink-2);margin-top:2px;">За полезную привычку — зашли или прошли урок. Не за сделки.</div>
+          <div style="font-size:13px;color:var(--ink-2);margin-top:2px;">За визит или урок — не за сделки.</div>
         </div>
       </div>
 
@@ -288,7 +351,23 @@
           <span style="font-size:16px;font-weight:600;">«Отпуск»</span>
           <span style="font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;" data-bind="goal-summary">52 340 ₽ из 100 000 ₽ · к июню</span>
         </div>
-        <div class="bar" style="margin-top:12px;"><i data-bind="goal-bar" style="width:52%;"></i></div>
+        <div class="bar gold" style="margin-top:12px;"><i data-bind="goal-bar" style="width:52%;"></i></div>
+      </div>
+
+      <div class="section-h">Настройки</div>
+      <div class="card flush">
+        <button class="row no-icon" data-toast-btn="Светлая тема — смотрите базовый прототип">
+          <span class="r-body"><span class="r-title">Тёмная тема</span><span class="r-sub" style="display:block;">Включена</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+        <button class="row no-icon" data-push="notif">
+          <span class="r-body"><span class="r-title">Уведомления</span><span class="r-sub" style="display:block;">Только полезные</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+        <button class="row no-icon" data-toast-btn="Чат поддержки — фаза 2">
+          <span class="r-body"><span class="r-title">Помощь</span><span class="r-sub" style="display:block;">Ответим простыми словами</span></span>
+          <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
       </div>
     </section>
 
@@ -318,15 +397,15 @@
         <div class="sheet-cap">Цена за 5 лет</div>
         <svg viewBox="0 0 330 120" style="width:100%;height:auto;margin-top:10px;display:block;" aria-label="График цены за 5 лет: рост с колебаниями">
           <defs>
-            <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="var(--gain)" stop-opacity=".18"/>
+            <linearGradient id="chartFillP" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--gain)" stop-opacity=".2"/>
               <stop offset="1" stop-color="var(--gain)" stop-opacity="0"/>
             </linearGradient>
           </defs>
           <g stroke="var(--sep)" stroke-width=".5">
             <line x1="0" y1="30" x2="330" y2="30"/><line x1="0" y1="65" x2="330" y2="65"/><line x1="0" y1="100" x2="330" y2="100"/>
           </g>
-          <path d="M0,98 C25,92 40,102 60,90 S95,70 115,76 S150,50 175,58 S215,38 240,46 S275,22 305,28 L330,22 L330,120 L0,120 Z" fill="url(#chartFill)"/>
+          <path d="M0,98 C25,92 40,102 60,90 S95,70 115,76 S150,50 175,58 S215,38 240,46 S275,22 305,28 L330,22 L330,120 L0,120 Z" fill="url(#chartFillP)"/>
           <path d="M0,98 C25,92 40,102 60,90 S95,70 115,76 S150,50 175,58 S215,38 240,46 S275,22 305,28 L330,22" fill="none" stroke="var(--gain)" stroke-width="2" stroke-linecap="round"/>
         </svg>
         <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);margin-top:6px;font-variant-numeric:tabular-nums;">
@@ -344,12 +423,13 @@
           <span style="font-size:14px;color:var(--ink-2);">через год ≈</span>
           <span style="font-size:26px;font-weight:700;color:var(--gain);font-variant-numeric:tabular-nums;">11 200 ₽</span>
         </div>
-        <p class="disclaimer" style="margin:8px 0 0;">Это ориентир по прошлым годам, а не гарантия. Цена может колебаться.</p>
+        <p style="font-size:13.5px;color:var(--gold);margin:8px 0 0;">Вы получите ≈ 32 акции и станете совладельцем</p>
+        <p class="disclaimer" style="margin:6px 0 0;">Ориентир по прошлым годам, не гарантия. Цена может колебаться.</p>
       </div>
 
       <div class="card" style="display:flex;gap:12px;align-items:flex-start;">
         <span class="tag-risk" style="margin-top:1px;">средне</span>
-        <p style="margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.45;">Риск: цена «дышит», но на горизонте от года колебания обычно сглаживаются.</p>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.45;">Цена «дышит», но на горизонте от года колебания обычно сглаживаются.</p>
       </div>
 
       <div class="section-h">Для опытных</div>
@@ -362,6 +442,40 @@
       </div>
 
       <button class="btn btn-primary" style="margin-top:20px;" data-sheet="buy">Купить</button>
+    </section>
+
+    <!-- ================= Push: Уведомления ================= -->
+    <section class="push" id="push-notif">
+      <div class="push-nav">
+        <button class="back" data-back>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+          Профиль
+        </button>
+        <span class="push-title">Уведомления</span>
+      </div>
+
+      <div class="card flush" style="margin-top:4px;">
+        <div class="row" style="cursor:default;">
+          <span class="r-icon" style="background:var(--accent-soft);color:var(--gain);">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5z"/><path d="M10.3 21a2 2 0 0 0 3.4 0"/></svg>
+          </span>
+          <span class="r-body"><span class="r-title" style="font-size:15px;">Урок дня ждёт — 3 минуты</span><span class="r-sub" style="display:block;">сегодня, 10:00</span></span>
+        </div>
+        <div class="row" style="cursor:default;">
+          <span class="r-icon" style="background:var(--gold-soft);color:var(--gold);">
+            <svg width="15" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c1.3 3.6-4.4 5.3-4.4 10.4a4.4 4.4 0 0 0 8.8 0c0-2.1-1-3.4-1.7-4.4-.8 1.2-1.7 1.5-1.7 1.5.5-2.2.1-5.1-1-7.5z"/></svg>
+          </span>
+          <span class="r-body"><span class="r-title" style="font-size:15px;">Серия 5 дней — так держать!</span><span class="r-sub" style="display:block;">вчера</span></span>
+        </div>
+        <div class="row" style="cursor:default;">
+          <span class="r-icon" style="background:var(--gain-bg);color:var(--gain);">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="2.5"/><path d="M9 8V6.5A2.5 2.5 0 0 1 11.5 4h1A2.5 2.5 0 0 1 15 6.5V8"/></svg>
+          </span>
+          <span class="r-body"><span class="r-title" style="font-size:15px;">До «Отпуска» осталось 47 660 ₽</span><span class="r-sub" style="display:block;">в понедельник</span></span>
+        </div>
+      </div>
+
+      <p style="font-size:13px;color:var(--ink-2);margin:14px 4px 0;line-height:1.45;">Никаких «срочно покупайте»: напоминаем только о привычке, уроках и цели.</p>
     </section>
 
     <!-- ================= Шторки ================= -->
@@ -391,25 +505,34 @@
         <h3>Всё верно?</h3>
         <div class="kv">
           <div class="kv-row"><span class="k">Вы покупаете</span><span class="v">Сбербанк · <span data-amount-out>10 000 ₽</span></span></div>
+          <div class="kv-row"><span class="k">Ваша доля</span><span class="v" style="color:var(--gold);" data-shares-out data-price="312">≈ 32 акции</span></div>
           <div class="kv-row"><span class="k">Когда купим</span><span class="v">Сразу</span></div>
           <div class="kv-row"><span class="k">Комиссия</span><span class="v">0 ₽</span></div>
           <div class="kv-row"><span class="k">Продать можно</span><span class="v">В любой день</span></div>
         </div>
         <button class="btn btn-primary" style="margin-top:16px;" data-goto="3" data-buy-confirm>Подтвердить покупку</button>
-        <button class="btn btn-plain" data-goto="1">Изменить сумму</button>
+        <button class="btn btn-plain" style="color:var(--gain);" data-goto="1">Изменить сумму</button>
       </div>
 
       <div class="sheet-step" data-step="3">
         <div class="success-wrap">
-          <div class="success-mark">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+          <div style="font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);">Ни фига себе</div>
+          <h3 style="margin-top:6px;">Вы — акционер</h3>
+
+          <div class="cert">
+            <div class="seal">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.4 5.4 5.9.6-4.4 4 1.2 5.8L12 15.9l-5.1 2.9 1.2-5.8-4.4-4 5.9-.6z"/></svg>
+            </div>
+            <div class="cert-cap">Сертификат акционера</div>
+            <div class="cert-name">Анна · Сбербанк</div>
+            <div class="cert-sub">доля: <span data-shares-out data-price="312">≈ 32 акции</span></div>
+            <div class="cert-no">№ VK-2026-0512</div>
           </div>
-          <h3>Ура — первая покупка!</h3>
+
           <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;">
             <span class="chip chip-gold">+100 XP</span>
             <span class="chip chip-neutral">Бейдж «Первая покупка»</span>
           </div>
-          <p style="font-size:13.5px;color:var(--ink-2);margin:14px 0 0;line-height:1.45;">Совет от Копи: следующая привычка — не продавать при первых колебаниях. Время работает на вас.</p>
           <button class="btn btn-primary" style="margin-top:18px;" data-finish>Смотреть портфель</button>
         </div>
       </div>
@@ -419,15 +542,15 @@
       <div class="grabber"></div>
 
       <div class="sheet-step on" data-step="1">
-        <div class="sheet-cap" style="color:var(--accent);">Урок дня · 3 мин · +20 XP</div>
+        <div class="sheet-cap" style="color:var(--gold);">Урок дня · 3 мин · +20 XP</div>
         <h3>Почему цены прыгают</h3>
-        <p style="font-size:15px;line-height:1.5;color:var(--ink);margin:10px 0 0;">Цена акции меняется каждый день — как настроение рынка. Кто-то покупает, кто-то продаёт, и цена «дышит».</p>
+        <p style="font-size:15px;line-height:1.5;margin:10px 0 0;">Цена акции меняется каждый день — как настроение рынка. Кто-то покупает, кто-то продаёт, и цена «дышит».</p>
         <p style="font-size:15px;line-height:1.5;color:var(--ink-2);margin:8px 0 0;">Это не поломка — это нормальная жизнь биржи.</p>
         <button class="btn btn-primary" style="margin-top:20px;" data-goto="2">Дальше</button>
       </div>
 
       <div class="sheet-step" data-step="2">
-        <div class="sheet-cap" style="color:var(--accent);">Урок дня · 2 из 3</div>
+        <div class="sheet-cap" style="color:var(--gold);">Урок дня · 2 из 3</div>
         <h3>Чем длиннее срок — тем спокойнее</h3>
         <p style="font-size:15px;line-height:1.5;margin:10px 0 0;">Дневные скачки на горизонте 3–5 лет превращаются в ровную линию роста.</p>
         <p style="font-size:15px;line-height:1.5;color:var(--ink-2);margin:8px 0 0;">Поэтому для долгой цели — как ваш «Отпуск» — колебания почти не важны.</p>
@@ -435,7 +558,7 @@
       </div>
 
       <div class="sheet-step" data-step="3">
-        <div class="sheet-cap" style="color:var(--accent);">Проверим себя</div>
+        <div class="sheet-cap" style="color:var(--gold);">Проверим себя</div>
         <h3>Ваш портфель просел на 2 % за день. Что делаете?</h3>
         <button class="quiz-opt">Срочно всё продать</button>
         <button class="quiz-opt" data-correct="true">Ничего: для долгой цели это нормально</button>
