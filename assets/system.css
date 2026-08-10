@@ -986,9 +986,11 @@ button, a { touch-action: manipulation; }
   .studio-head, .proto-controls, .studio-foot { display: none; }
   .stage { width: 100%; }
   .device {
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
+    /* Фиксируемся к видимому вьюпорту: низ всегда прижат, без vh-математики */
+    position: fixed;
+    inset: 0;
+    width: auto;
+    height: auto;
     border-radius: 0;
     padding: 0;
     box-shadow: none;

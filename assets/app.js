@@ -161,7 +161,7 @@
       if (opt.dataset.correct === "true") {
         opt.classList.add("correct");
         $all(".quiz-opt", sheet).forEach(function (o) { o.disabled = true; });
-        if (note) { note.textContent = "Верно! Спокойствие — суперсила инвестора."; note.classList.add("ok"); }
+        if (note) { note.textContent = "Верно! Спокойствие - суперсила инвестора."; note.classList.add("ok"); }
         $all("[data-quiz-done]", sheet).forEach(function (b) { b.disabled = false; });
       } else {
         opt.classList.add("wrong");
@@ -187,7 +187,7 @@
     el.addEventListener("click", function () { toast(el.dataset.toastBtn, el.dataset.toastXp || ""); });
   });
 
-  /* Приветственный тост серии — как в концепции: через секунду после входа */
+  /* Приветственный тост серии - как в концепции: через секунду после входа */
   if (device.dataset.welcomeToast) {
     setTimeout(function () { toast(device.dataset.welcomeToast, device.dataset.welcomeXp || ""); }, 1100);
   }
